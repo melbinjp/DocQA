@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📄 Chat with a Doc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .upload-section {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .upload-section.dragover {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .upload-btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .url-input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .url-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .query-section {
+            margin-top: 30px;
+        }
+
+        .query-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .query-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .results-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .result-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .answer-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sources-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .source-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loader.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .documents-list {
+            margin-top: 20px;
+        }
+
+        .doc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .doc-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .doc-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .example-queries {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f0fe;
+            border-radius: 10px;
+        }
+
+        .example-queries h4 {
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+
+        .example-query {
+            display: inline-block;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 15px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .example-query:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .container {
+                border-radius: 10px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Chat with a Doc</h1>
+            <p>Upload documents and chat with them using AI.</p>
+        </div>
+
+        <div class="main-content">
+            <div class="tab-container">
+                <button class="tab active" onclick="switchTab('upload')">📁 Upload</button>
+                <button class="tab" onclick="switchTab('query')">💬 Ask</button>
+                <button class="tab" onclick="switchTab('documents')">📚 Docs</button>
+            </div>
+
+            <!-- Upload Tab -->
+            <div id="upload-tab" class="tab-content active">
+                <div class="upload-section" id="dropZone">
+                    <div style="font-size:48px;margin-bottom:20px">📂</div>
+                    <h3>Drop a file or click to choose</h3>
+                    <p style="color:#666;margin:10px 0">PDF, DOCX, TXT (max 5 MB)</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt" />
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+                </div>
+
+                <div style="text-align:center;margin:20px 0;color:#666">— OR —</div>
+
+                <div class="url-input-group">
+                    <input type="url" id="urlInput" class="url-input" placeholder="Enter a webpage URL…" />
+                    <button class="upload-btn" onclick="uploadURL()">Fetch URL</button>
+                </div>
+
+                <div id="uploadStatus" class="status-message"></div>
+            </div>
+
+            <!-- Query Tab -->
+            <div id="query-tab" class="tab-content">
+                <div class="query-section">
+                    <h3 style="margin-bottom:15px">Ask a question about your documents</h3>
+                    <textarea
+                        id="queryInput"
+                        class="query-input"
+                        placeholder="Ask a question…"
+                        onkeypress="if(event.key==='Enter'&&!event.shiftKey){submitQuery();event.preventDefault();}"
+                    ></textarea>
+
+                    <div class="example-queries">
+                        <h4>Example questions</h4>
+                        <span class="example-query" onclick="setQuery('Summarize the key points')">Summarize key points</span>
+                        <span class="example-query" onclick="setQuery('What are the main conclusions?')">Main conclusions</span>
+                        <span class="example-query" onclick="setQuery('List any action items mentioned')">Action items</span>
+                    </div>
+
+                    <button id="submitBtn" class="submit-btn" onclick="submitQuery()">Ask</button>
+                </div>
+
+                <div class="loader" id="queryLoader">
+                    <div class="spinner"></div>
+                    <p style="margin-top:10px;color:#666">Thinking…</p>
+                </div>
+
+                <div id="results" class="results-section">
+                    <div class="result-header">📝 Answer</div>
+                    <div id="answer" class="answer-box"></div>
+
+                    <div class="result-header">📚 Sources</div>
+                    <div id="sources" class="sources-box"></div>
+                </div>
+            </div>
+
+            <!-- Documents Tab -->
+            <div id="documents-tab" class="tab-content">
+                <h3>Uploaded Documents</h3>
+                <div id="documentsList" class="documents-list">
+                    <p style="color:#666;text-align:center;padding:40px">No documents uploaded yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_ROOT = "https://melbinjp-chat-with-a-doc-api.hf.space"; // replace with your own Space URL if different
+        let uploadedDocs = {};
+
+        // Tab switching
+        function switchTab(name) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`${name}-tab`).classList.add('active');
+            if (name === 'documents') updateDocumentsList();
+        }
+
+        // Drag & drop handlers
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length) handleFileUpload(files[0]);
+        });
+
+        document.getElementById('fileInput').addEventListener('change', e => {
+            if (e.target.files.length) handleFileUpload(e.target.files[0]);
+        });
+
+        async function handleFileUpload(file) {
+            const maxSize = 5 * 1024 * 1024; // 5 MB
+            if (file.size > maxSize) { showStatus('error', 'File too large (max 5 MB)'); return; }
+            const fd = new FormData();
+            fd.append('file', file);
+            showStatus('info', 'Uploading…');
+            try {
+                const res = await fetch(`${API_ROOT}/ingest`, { method: 'POST', body: fd });
+                const data = await res.json();
+                if (res.ok) {
+                    uploadedDocs[data.doc_id] = { name: file.name, chunks: data.chunks, uploadTime: new Date().toLocaleString() };
+                    showStatus('success', `Uploaded ✓ (${data.chunks} chunks)`);
+                    setTimeout(() => document.querySelectorAll('.tab')[1].click(), 1200);
+                } else {
+                    showStatus('error', data.detail || 'Upload failed');
+                }
+            } catch (err) {
+                showStatus('error', err.message);
+            }
+        }
+
+        async function uploadURL() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) { showStatus('error', 'Enter a URL'); return; }
+            if (!/^https?:\/\//.test(url)) { showStatus('error', 'URL must start with http(s)://'); return; }
+            showStatus('info', 'Fetching URL…');
+            try {
+                const res = await fetch(`${API_ROOT}/ingest`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    uploadedDocs[data.doc_id] = { name: url, chunks: data.chunks, uploadTime: new Date().toLocaleString() };
+                    showStatus('success', 'URL processed ✓');
+                    document.getElementById('urlInput').value = '';
+                    setTimeout(() => document.querySelectorAll('.tab')[1].click(), 1200);
+                } else {
+                    showStatus('error', data.detail || 'Fetch failed');
+                }
+            } catch (err) {
+                showStatus('error', err.message);
+            }
+        }
+
+        async function submitQuery() {
+            const q = document.getElementById('queryInput').value.trim();
+            if (!q) { alert('Enter a question'); return; }
+            if (!Object.keys(uploadedDocs).length) { alert('Upload a document first'); return; }
+            const btn = document.getElementById('submitBtn');
+            const loader = document.getElementById('queryLoader');
+            const results = document.getElementById('results');
+            btn.disabled = true;
+            loader.classList.add('show');
+            results.classList.remove('show');
+            try {
+                const res = await fetch(`${API_ROOT}/query?q=${encodeURIComponent(q)}`);
+                const data = await res.json();
+                if (res.ok) {
+                    displayResults(data);
+                } else {
+                    alert(data.detail || 'Query failed');
+                }
+            } catch (err) {
+                alert(err.message);
+            } finally {
+                btn.disabled = false;
+                loader.classList.remove('show');
+            }
+        }
+
+        function displayResults(data) {
+            const answerDiv = document.getElementById('answer');
+            const sourcesDiv = document.getElementById('sources');
+            answerDiv.innerHTML = `<div style="white-space:pre-wrap;line-height:1.6">${escapeHtml(data.answer)}</div>`;
+            if (data.sources && data.sources.length) {
+                sourcesDiv.innerHTML = data.sources.map((s, i) => `<div class="source-item"><strong>Source ${i + 1}:</strong><br>${escapeHtml(s.slice(0, 200))}${s.length > 200 ? '…' : ''}</div>`).join('');
+            } else {
+                sourcesDiv.innerHTML = '<p style="color:#666">No sources provided</p>';
+            }
+            document.getElementById('results').classList.add('show');
+        }
+
+        function updateDocumentsList() {
+            const list = document.getElementById('documentsList');
+            if (!Object.keys(uploadedDocs).length) {
+                list.innerHTML = '<p style="color:#666;text-align:center;padding:40px">No documents uploaded yet.</p>';
+                return;
+            }
+            list.innerHTML = Object.entries(uploadedDocs).map(([id, doc]) => `<div class="doc-item"><div><div class="doc-name">${escapeHtml(doc.name)}</div><div class="doc-info">ID: ${id} | ${doc.chunks} chunks | ${doc.uploadTime}</div></div></div>`).join('');
+        }
+
+        function setQuery(text) {
+            document.getElementById('queryInput').value = text;
+            document.getElementById('queryInput').focus();
+        }
+
+        function showStatus(type, msg) {
+            const div = document.getElementById('uploadStatus');
+            div.className = `status-message show ${type}`;
+            div.textContent = msg;
+            if (['success', 'error'].includes(type)) setTimeout(() => div.classList.remove('show'), 5000);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;' }[ch]));
+        }
+
+        // Health check on load
+        window.addEventListener('load', async () => {
+            try {
+                const res = await fetch(`${API_ROOT}/health`);
+                const data = await res.json();
+                console.log('API health', data);
+            } catch (_e) { /* ignore */ }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u') { e.preventDefault(); document.querySelectorAll('.tab')[0].click(); }
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'q') { e.preventDefault(); document.querySelectorAll('.tab')[1].click(); document.getElementById('queryInput').focus(); }
+        });
+    </script>
+</body>
+</html> 
