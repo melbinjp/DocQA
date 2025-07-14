@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>📄 Chat with a Doc</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📄 Chat with a Doc - Document Q&A</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/melbinjp/favicon/master/favicon.png">
     <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/melbinjp/favicon/master/favicon.svg">
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
@@ -27,13 +26,13 @@
 
         .container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1400px; /* cap for ultra-wide monitors */
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            padding: 0 20px;
+            padding: 0 20px; /* small side padding when in full width */
         }
 
         .header {
@@ -347,9 +346,11 @@
             .header h1 {
                 font-size: 2em;
             }
+            
             .container {
                 border-radius: 10px;
             }
+            
             .main-content {
                 padding: 20px;
             }
@@ -360,31 +361,37 @@
     <div class="container">
         <div class="header">
             <h1>📄 Chat with a Doc</h1>
-            <p>Upload documents and chat with them using AI.</p>
+            <p>Upload documents and chat with them using AI-powered search</p>
         </div>
 
         <div class="main-content">
             <div class="tab-container">
-                <button class="tab active" onclick="switchTab('upload')">📁 Upload</button>
-                <button class="tab" onclick="switchTab('query')">💬 Ask</button>
-                <button class="tab" onclick="switchTab('documents')">📚 Docs</button>
+                <button class="tab active" onclick="switchTab('upload')">📄 Upload Document</button>
+                <button class="tab" onclick="switchTab('query')">💬 Ask Questions</button>
+                <button class="tab" onclick="switchTab('documents')">📚 My Documents</button>
             </div>
 
             <!-- Upload Tab -->
             <div id="upload-tab" class="tab-content active">
                 <div class="upload-section" id="dropZone">
-                    <div style="font-size:48px;margin-bottom:20px">📂</div>
-                    <h3>Drop a file or click to choose</h3>
-                    <p style="color:#666;margin:10px 0">PDF, DOCX, TXT (max 5 MB)</p>
-                    <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt" />
-                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Choose File</button>
+                    <div style="font-size: 48px; margin-bottom: 20px;">📁</div>
+                    <h3>Drop your file here or click to upload</h3>
+                    <p style="color: #666; margin: 10px 0;">Supports PDF, DOCX, TXT (max 5MB)</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
                 </div>
 
-                <div style="text-align:center;margin:20px 0;color:#666">— OR —</div>
+                <div style="text-align: center; margin: 20px 0; color: #666;">
+                    — OR —
+                </div>
 
                 <div class="url-input-group">
-                    <input type="url" id="urlInput" class="url-input" placeholder="Enter a webpage URL…" />
-                    <button class="upload-btn" onclick="uploadURL()">Fetch URL</button>
+                    <input type="url" id="urlInput" class="url-input" placeholder="Enter a webpage URL...">
+                    <button class="upload-btn" onclick="uploadURL()">
+                        Fetch URL
+                    </button>
                 </div>
 
                 <div id="uploadStatus" class="status-message"></div>
@@ -393,33 +400,38 @@
             <!-- Query Tab -->
             <div id="query-tab" class="tab-content">
                 <div class="query-section">
-                    <h3 style="margin-bottom:15px">Ask a question about your documents</h3>
-                    <textarea
-                        id="queryInput"
-                        class="query-input"
-                        placeholder="Ask a question…"
-                        onkeypress="if(event.key==='Enter'&&!event.shiftKey){submitQuery();event.preventDefault();}"
-                    ></textarea>
-
+                    <h3 style="margin-bottom: 15px;">Ask a question about your documents</h3>
+                    <textarea id="queryInput" class="query-input" 
+                              placeholder="What would you like to know about your documents?"
+                              onkeypress="if(event.key === 'Enter' && !event.shiftKey) { submitQuery(); event.preventDefault(); }"></textarea>
+                    
                     <div class="example-queries">
-                        <h4>Example questions</h4>
-                        <span class="example-query" onclick="setQuery('Summarize the key points')">Summarize key points</span>
-                        <span class="example-query" onclick="setQuery('What are the main conclusions?')">Main conclusions</span>
-                        <span class="example-query" onclick="setQuery('List any action items mentioned')">Action items</span>
+                        <h4>Try these examples:</h4>
+                        <span class="example-query" onclick="setQuery('What is the main topic of this document?')">
+                            What is the main topic?
+                        </span>
+                        <span class="example-query" onclick="setQuery('Summarize the key points')">
+                            Summarize key points
+                        </span>
+                        <span class="example-query" onclick="setQuery('What are the main conclusions?')">
+                            Main conclusions
+                        </span>
                     </div>
-
-                    <button id="submitBtn" class="submit-btn" onclick="submitQuery()">Ask</button>
+                    
+                    <button id="submitBtn" class="submit-btn" onclick="submitQuery()">
+                        Ask Question
+                    </button>
                 </div>
 
                 <div class="loader" id="queryLoader">
                     <div class="spinner"></div>
-                    <p style="margin-top:10px;color:#666">Thinking…</p>
+                    <p style="margin-top: 10px; color: #666;">Searching documents...</p>
                 </div>
 
                 <div id="results" class="results-section">
                     <div class="result-header">📝 Answer</div>
                     <div id="answer" class="answer-box"></div>
-
+                    
                     <div class="result-header">📚 Sources</div>
                     <div id="sources" class="sources-box"></div>
                 </div>
@@ -429,163 +441,286 @@
             <div id="documents-tab" class="tab-content">
                 <h3>Uploaded Documents</h3>
                 <div id="documentsList" class="documents-list">
-                    <p style="color:#666;text-align:center;padding:40px">No documents uploaded yet.</p>
+                    <p style="color: #666; text-align: center; padding: 40px;">
+                        No documents uploaded yet. Go to the Upload tab to add documents.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const API_ROOT = "https://melbinjp-chat-with-a-doc.hf.space"; // replace with your own Space URL if different
+        // Global state
         let uploadedDocs = {};
+        let API_ROOT = "https://melbinjp-chat-with-a-doc.hf.space/";
 
         // Tab switching
-        function switchTab(name) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(`${name}-tab`).classList.add('active');
-            if (name === 'documents') updateDocumentsList();
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            if (tabName === 'documents') {
+                updateDocumentsList();
+            }
         }
 
-        // Drag & drop handlers
+        // Drag and drop
         const dropZone = document.getElementById('dropZone');
-        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-        dropZone.addEventListener('drop', e => {
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('dragover');
+            
             const files = e.dataTransfer.files;
-            if (files.length) handleFileUpload(files[0]);
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
         });
 
-        document.getElementById('fileInput').addEventListener('change', e => {
-            if (e.target.files.length) handleFileUpload(e.target.files[0]);
+        // File input change
+        document.getElementById('fileInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
         });
 
+        // File upload handler
         async function handleFileUpload(file) {
-            const maxSize = 5 * 1024 * 1024; // 5 MB
-            if (file.size > maxSize) { showStatus('error', 'File too large (max 5 MB)'); return; }
-            const fd = new FormData();
-            fd.append('file', file);
-            showStatus('info', 'Uploading…');
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                showStatus('error', 'File too large. Maximum size is 5MB.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', file);
+            showStatus('info', 'Uploading and processing document...');
             try {
-                const res = await fetch(`${API_ROOT}/ingest`, { method: 'POST', body: fd });
-                const data = await res.json();
-                if (res.ok) {
-                    uploadedDocs[data.doc_id] = { name: file.name, chunks: data.chunks, uploadTime: new Date().toLocaleString() };
-                    showStatus('success', `Uploaded ✓ (${data.chunks} chunks)`);
-                    setTimeout(() => document.querySelectorAll('.tab')[1].click(), 1200);
+                const response = await fetch(`${API_ROOT}ingest`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    uploadedDocs[data.doc_id] = {
+                        name: file.name,
+                        chunks: data.chunks,
+                        uploadTime: new Date().toLocaleString()
+                    };
+                    showStatus('success', `✅ Document uploaded successfully! Document ID: ${data.doc_id} (${data.chunks} chunks)`);
+                    setTimeout(() => {
+                        document.querySelectorAll('.tab')[1].click();
+                    }, 2000);
                 } else {
-                    showStatus('error', data.detail || 'Upload failed');
+                    showStatus('error', `Error: ${data.detail || 'Upload failed'}`);
                 }
-            } catch (err) {
-                showStatus('error', err.message);
+            } catch (error) {
+                showStatus('error', `Error: ${error.message}`);
             }
         }
 
+        // URL upload handler
         async function uploadURL() {
             const url = document.getElementById('urlInput').value.trim();
-            if (!url) { showStatus('error', 'Enter a URL'); return; }
-            if (!/^https?:\/\//.test(url)) { showStatus('error', 'URL must start with http(s)://'); return; }
-            showStatus('info', 'Fetching URL…');
+            if (!url) {
+                showStatus('error', 'Please enter a URL');
+                return;
+            }
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                showStatus('error', 'Please enter a valid URL starting with http:// or https://');
+                return;
+            }
+            showStatus('info', 'Fetching and processing URL...');
             try {
-                const res = await fetch(`${API_ROOT}/ingest`, {
+                const response = await fetch(`${API_ROOT}ingest`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url })
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: url })
                 });
-                const data = await res.json();
-                if (res.ok) {
-                    uploadedDocs[data.doc_id] = { name: url, chunks: data.chunks, uploadTime: new Date().toLocaleString() };
-                    showStatus('success', 'URL processed ✓');
+                const data = await response.json();
+                if (response.ok) {
+                    uploadedDocs[data.doc_id] = {
+                        name: url,
+                        chunks: data.chunks,
+                        uploadTime: new Date().toLocaleString()
+                    };
+                    showStatus('success', `✅ URL content uploaded successfully! Document ID: ${data.doc_id} (${data.chunks} chunks)`);
                     document.getElementById('urlInput').value = '';
-                    setTimeout(() => document.querySelectorAll('.tab')[1].click(), 1200);
+                    setTimeout(() => {
+                        document.querySelectorAll('.tab')[1].click();
+                    }, 2000);
                 } else {
-                    showStatus('error', data.detail || 'Fetch failed');
+                    showStatus('error', `Error: ${data.detail || 'URL fetch failed'}`);
                 }
-            } catch (err) {
-                showStatus('error', err.message);
+            } catch (error) {
+                showStatus('error', `Error: ${error.message}`);
             }
         }
 
+        // Query submission
         async function submitQuery() {
-            const q = document.getElementById('queryInput').value.trim();
-            if (!q) { alert('Enter a question'); return; }
-            if (!Object.keys(uploadedDocs).length) { alert('Upload a document first'); return; }
-            const btn = document.getElementById('submitBtn');
+            const query = document.getElementById('queryInput').value.trim();
+            if (!query) {
+                alert('Please enter a question');
+                return;
+            }
+            if (Object.keys(uploadedDocs).length === 0) {
+                alert('Please upload at least one document first');
+                return;
+            }
+            const submitBtn = document.getElementById('submitBtn');
             const loader = document.getElementById('queryLoader');
             const results = document.getElementById('results');
-            btn.disabled = true;
+            submitBtn.disabled = true;
             loader.classList.add('show');
             results.classList.remove('show');
             try {
-                const res = await fetch(`${API_ROOT}/query?q=${encodeURIComponent(q)}`);
-                const data = await res.json();
-                if (res.ok) {
+                const response = await fetch(`${API_ROOT}query?q=${encodeURIComponent(query)}`, {
+                    method: 'GET'
+                });
+                const data = await response.json();
+                if (response.ok) {
                     displayResults(data);
                 } else {
-                    alert(data.detail || 'Query failed');
+                    alert(`Error: ${data.detail || 'Query failed'}`);
                 }
-            } catch (err) {
-                alert(err.message);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
             } finally {
-                btn.disabled = false;
+                submitBtn.disabled = false;
                 loader.classList.remove('show');
             }
         }
 
+        // Display query results
         function displayResults(data) {
+            const results = document.getElementById('results');
             const answerDiv = document.getElementById('answer');
             const sourcesDiv = document.getElementById('sources');
-            answerDiv.innerHTML = `<div style="white-space:pre-wrap;line-height:1.6">${escapeHtml(data.answer)}</div>`;
-            if (data.sources && data.sources.length) {
-                sourcesDiv.innerHTML = data.sources.map((s, i) => `<div class="source-item"><strong>Source ${i + 1}:</strong><br>${escapeHtml(s.slice(0, 200))}${s.length > 200 ? '…' : ''}</div>`).join('');
+            
+            // Display answer
+            answerDiv.innerHTML = `
+                <div style="white-space: pre-wrap; line-height: 1.6;">
+                    ${escapeHtml(data.answer)}
+                </div>
+                ${data.confidence ? `
+                    <div style="margin-top: 10px; font-size: 14px; color: #666;">
+                        Confidence: ${(data.confidence * 100).toFixed(1)}%
+                    </div>
+                ` : ''}
+            `;
+            
+            // Display sources
+            if (data.sources && data.sources.length > 0) {
+                sourcesDiv.innerHTML = data.sources.map((source, idx) => `
+                    <div class="source-item">
+                        <strong>Source ${idx + 1}:</strong><br>
+                        ${escapeHtml(source.substring(0, 200))}${source.length > 200 ? '...' : ''}
+                    </div>
+                `).join('');
             } else {
-                sourcesDiv.innerHTML = '<p style="color:#666">No sources provided</p>';
+                sourcesDiv.innerHTML = '<p style="color: #666;">No sources found</p>';
             }
-            document.getElementById('results').classList.add('show');
+            
+            results.classList.add('show');
         }
 
+        // Update documents list
         function updateDocumentsList() {
-            const list = document.getElementById('documentsList');
-            if (!Object.keys(uploadedDocs).length) {
-                list.innerHTML = '<p style="color:#666;text-align:center;padding:40px">No documents uploaded yet.</p>';
+            const listDiv = document.getElementById('documentsList');
+            
+            if (Object.keys(uploadedDocs).length === 0) {
+                listDiv.innerHTML = `
+                    <p style="color: #666; text-align: center; padding: 40px;">
+                        No documents uploaded yet. Go to the Upload tab to add documents.
+                    </p>
+                `;
                 return;
             }
-            list.innerHTML = Object.entries(uploadedDocs).map(([id, doc]) => `<div class="doc-item"><div><div class="doc-name">${escapeHtml(doc.name)}</div><div class="doc-info">ID: ${id} | ${doc.chunks} chunks | ${doc.uploadTime}</div></div></div>`).join('');
+            
+            listDiv.innerHTML = Object.entries(uploadedDocs).map(([docId, doc]) => `
+                <div class="doc-item">
+                    <div>
+                        <div class="doc-name">${escapeHtml(doc.name)}</div>
+                        <div class="doc-info">
+                            ID: ${docId} | ${doc.chunks} chunks | Uploaded: ${doc.uploadTime}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
+        // Set example query
         function setQuery(text) {
             document.getElementById('queryInput').value = text;
             document.getElementById('queryInput').focus();
         }
 
-        function showStatus(type, msg) {
-            const div = document.getElementById('uploadStatus');
-            div.className = `status-message show ${type}`;
-            div.textContent = msg;
-            if (['success', 'error'].includes(type)) setTimeout(() => div.classList.remove('show'), 5000);
+        // Show status message
+        function showStatus(type, message) {
+            const statusDiv = document.getElementById('uploadStatus');
+            statusDiv.className = `status-message show ${type}`;
+            statusDiv.textContent = message;
+            
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    statusDiv.classList.remove('show');
+                }, 5000);
+            }
         }
 
-        function escapeHtml(str) {
-            return str.replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', '\'': '&#039;' }[ch]));
+        // Escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
         }
-
-        // Health check on load
-        window.addEventListener('load', async () => {
-            try {
-                const res = await fetch(`${API_ROOT}/health`);
-                const data = await res.json();
-                console.log('API health', data);
-            } catch (_e) { /* ignore */ }
-        });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', e => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'u') { e.preventDefault(); document.querySelectorAll('.tab')[0].click(); }
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'q') { e.preventDefault(); document.querySelectorAll('.tab')[1].click(); document.getElementById('queryInput').focus(); }
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + U for upload
+            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+                e.preventDefault();
+                document.querySelectorAll('.tab')[0].click();
+            }
+            // Ctrl/Cmd + Q for query
+            if ((e.ctrlKey || e.metaKey) && e.key === 'q') {
+                e.preventDefault();
+                document.querySelectorAll('.tab')[1].click();
+                document.getElementById('queryInput').focus();
+            }
+        });
+
+        // Check API health on load
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch(`${API_ROOT}health`);
+                const data = await response.json();
+                console.log('API Health:', data);
+            } catch (error) {
+                console.error('API Health check failed:', error);
+            }
         });
     </script>
 </body>
-</html> 
+</html>
