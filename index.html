@@ -11,6 +11,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
+        html {
+            color-scheme: light dark;
+        }
+        :root {
+            --bg-color: #fff;
+            --text-color: #111;
+            --text-color-subtle: #666;
+            --text-color-light: #444;
+            --primary-accent: #111;
+            --primary-accent-hover: #000;
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --header-bg: rgba(255, 255, 255, 0.92);
+            --interactive-bg: rgba(255, 255, 255, 0.85);
+            --interactive-bg-hover: #111;
+            --interactive-text-hover: #fff;
+            --input-bg: rgba(255, 255, 255, 0.7);
+            --box-bg: rgba(255, 255, 255, 0.7);
+            --results-bg: rgba(255, 255, 255, 0.92);
+            --border-color: #111;
+            --border-color-dashed: #111;
+            --border-color-hover: #000;
+            --error-color: #c00;
+            --error-border-color: #c00;
+            --spinner-bg: #fff;
+            --spinner-fg: #111;
+            --shadow-sm: rgba(0, 0, 0, 0.04);
+            --shadow-md: rgba(0, 0, 0, 0.07);
+            --shadow-lg: rgba(0, 0, 0, 0.1);
+            --shadow-xl: rgba(0, 0, 0, 0.13);
+            --header-line-color: #111;
+            --header-line-opacity: 0.18;
+            --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23111" stroke-width="3" fill="none" opacity="0.08"/><path d="M0,300 Q300,400 600,300 T1200,300" stroke="%23111" stroke-width="2" fill="none" opacity="0.06"/><path d="M0,500 Q200,600 400,500 T800,500 T1200,500" stroke="%23111" stroke-width="2" fill="none" opacity="0.05"/></svg>');
+        }
+
         @media (max-width: 600px) {
             .upload-section {
                 padding-bottom: 20px;
@@ -52,7 +86,7 @@
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: 0;
             pointer-events: none;
-            background: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23111" stroke-width="3" fill="none" opacity="0.08"/><path d="M0,300 Q300,400 600,300 T1200,300" stroke="%23111" stroke-width="2" fill="none" opacity="0.06"/><path d="M0,500 Q200,600 400,500 T800,500 T1200,500" stroke="%23111" stroke-width="2" fill="none" opacity="0.05"/></svg>');
+            background: var(--svg-bg-url);
             background-repeat: no-repeat;
             background-size: cover;
         }
@@ -65,8 +99,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fff;
-            color: #111;
+            background: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
         }
@@ -75,9 +109,9 @@
             width: 100%;
             max-width: 1400px;
             margin: 40px auto 0 auto;
-            background: rgba(255,255,255,0.85);
+            background: var(--container-bg);
             border-radius: 36px 80px 36px 80px/60px 36px 80px 36px;
-            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.13), 0 1.5px 0 #111, 0 0 0 6px #fff;
+            box-shadow: 0 12px 40px 0 var(--shadow-xl), 0 1.5px 0 var(--border-color), 0 0 0 6px var(--bg-color);
             overflow: visible;
             padding: 0 20px 30px 20px;
             position: relative;
@@ -85,11 +119,11 @@
         }
 
         .header {
-            background: rgba(255,255,255,0.92);
-            color: #111;
+            background: var(--header-bg);
+            color: var(--text-color);
             border-bottom: 0;
             border-radius: 36px 80px 0 0/60px 36px 0 0;
-            box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 2px 16px 0 var(--shadow-md);
             padding: 36px 0 24px 0;
             text-align: center;
             margin-bottom: 0;
@@ -100,10 +134,10 @@
             display: block;
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, #111 60%, transparent 100%);
+            background: linear-gradient(90deg, var(--header-line-color) 60%, transparent 100%);
             border-radius: 2px;
             margin: 24px auto 0 auto;
-            opacity: 0.18;
+            opacity: var(--header-line-opacity);
         }
 
         .header h1 {
@@ -133,14 +167,14 @@
 
         .tab {
             padding: 14px 36px 12px 36px;
-            background: rgba(255,255,255,0.85);
+            background: var(--interactive-bg);
             border: none;
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             font-size: 17px;
             cursor: pointer;
-            color: #111;
+            color: var(--text-color);
             font-weight: 700;
-            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 2px 8px 0 var(--shadow-md);
             margin-bottom: -18px;
             position: relative;
             z-index: 2;
@@ -150,15 +184,15 @@
         }
 
         .tab.active {
-            color: #111;
-            border-bottom: 3px solid #111;
-            box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10), 0 2px 8px 0 rgba(0,0,0,0.07);
+            color: var(--primary-accent);
+            border-bottom: 3px solid var(--primary-accent);
+            box-shadow: 0 6px 24px 0 var(--shadow-lg), 0 2px 8px 0 var(--shadow-md);
         }
 
         .tab:hover {
-            color: #000;
-            border-bottom: 3px solid #000;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+            color: var(--primary-accent-hover);
+            border-bottom: 3px solid var(--primary-accent-hover);
+            box-shadow: 0 8px 32px 0 var(--shadow-xl);
         }
 
         .tab-content {
@@ -176,12 +210,12 @@
         }
 
         .upload-section {
-            background: rgba(255,255,255,0.7);
-            border: 2.5px dashed #111;
+            background: var(--input-bg);
+            border: 2.5px dashed var(--border-color-dashed);
             border-radius: 36px 80px 36px 80px/60px 36px 80px 36px;
             padding: 40px 0 30px 0;
             text-align: center;
-            box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 4px 24px 0 var(--shadow-md);
             margin-bottom: 24px;
             transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
             position: relative;
@@ -189,9 +223,9 @@
         }
 
         .upload-section.dragover {
-            border-color: #000;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+            border-color: var(--border-color-hover);
+            background: var(--header-bg); /* Use a slightly different bg for hover */
+            box-shadow: 0 8px 32px 0 var(--shadow-xl);
         }
 
         .file-input {
@@ -199,25 +233,25 @@
         }
 
         .upload-btn {
-            background: rgba(255,255,255,0.85);
-            color: #111;
+            background: var(--interactive-bg);
+            color: var(--text-color);
             padding: 12px 30px;
-            border: 2.5px solid #111;
+            border: 2.5px solid var(--border-color);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             font-size: 16px;
             cursor: pointer;
             font-weight: 700;
-            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 2px 8px 0 var(--shadow-md);
             display: inline-block;
             margin: 10px;
             transition: box-shadow 0.2s, color 0.2s, border-color 0.2s, background 0.2s;
         }
 
         .upload-btn:hover {
-            color: #fff;
-            background: #111;
-            border-color: #111;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+            color: var(--interactive-text-hover);
+            background: var(--interactive-bg-hover);
+            border-color: var(--interactive-bg-hover);
+            box-shadow: 0 8px 32px 0 var(--shadow-xl);
         }
 
         .url-input-group {
@@ -229,19 +263,19 @@
         .url-input {
             flex: 1;
             padding: 12px 20px;
-            border: 2.5px solid #111;
+            border: 2.5px solid var(--border-color);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             font-size: 16px;
             transition: border-color 0.2s, box-shadow 0.2s;
-            background: rgba(255,255,255,0.7);
-            color: #111;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            background: var(--input-bg);
+            color: var(--text-color);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
         }
 
         .url-input:focus {
             outline: none;
-            border-color: #000;
-            box-shadow: 0 4px 16px 0 rgba(0,0,0,0.10);
+            border-color: var(--border-color-hover);
+            box-shadow: 0 4px 16px 0 var(--shadow-lg);
         }
 
         .query-section {
@@ -251,28 +285,28 @@
         .query-input {
             width: 100%;
             padding: 15px 20px;
-            border: 2.5px solid #111;
+            border: 2.5px solid var(--border-color);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             font-size: 16px;
             transition: border-color 0.2s, box-shadow 0.2s;
             resize: vertical;
             min-height: 60px;
-            background: rgba(255,255,255,0.7);
-            color: #111;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            background: var(--input-bg);
+            color: var(--text-color);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
         }
 
         .query-input:focus {
             outline: none;
-            border-color: #000;
-            box-shadow: 0 4px 16px 0 rgba(0,0,0,0.10);
+            border-color: var(--border-color-hover);
+            box-shadow: 0 4px 16px 0 var(--shadow-lg);
         }
 
         .submit-btn {
-            background: rgba(255,255,255,0.85);
-            color: #111;
+            background: var(--interactive-bg);
+            color: var(--text-color);
             padding: 12px 40px;
-            border: 2.5px solid #111;
+            border: 2.5px solid var(--border-color);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             font-size: 16px;
             cursor: pointer;
@@ -280,15 +314,15 @@
             margin-top: 15px;
             display: block;
             margin-left: auto;
-            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 2px 8px 0 var(--shadow-md);
             transition: box-shadow 0.2s, color 0.2s, border-color 0.2s, background 0.2s;
         }
 
         .submit-btn:hover {
-            color: #fff;
-            background: #111;
-            border-color: #111;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+            color: var(--interactive-text-hover);
+            background: var(--interactive-bg-hover);
+            border-color: var(--interactive-bg-hover);
+            box-shadow: 0 8px 32px 0 var(--shadow-xl);
         }
 
         .submit-btn:disabled {
@@ -299,9 +333,9 @@
         .results-section {
             margin-top: 40px;
             padding: 32px 32px 0 32px;
-            background: rgba(255,255,255,0.92);
+            background: var(--results-bg);
             border-radius: 36px 80px 36px 80px/60px 36px 80px 36px;
-            box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+            box-shadow: 0 4px 24px 0 var(--shadow-md);
             display: none;
             position: relative;
             z-index: 1;
@@ -315,35 +349,35 @@
         .result-header {
             font-size: 18px;
             font-weight: 700;
-            color: #111;
+            color: var(--text-color);
             margin-bottom: 15px;
-            border-bottom: 2.5px solid #111;
+            border-bottom: 2.5px solid var(--border-color);
             padding-bottom: 5px;
         }
 
         .answer-box {
-            background: rgba(255,255,255,0.7);
+            background: var(--box-bg);
             padding: 20px 0 20px 0;
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             margin-bottom: 20px;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
         }
 
         .sources-box {
-            background: rgba(255,255,255,0.7);
+            background: var(--box-bg);
             padding: 20px 0 0 0;
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
         }
 
         .source-item {
             padding: 10px 0;
             margin: 5px 0;
             background: none;
-            border-bottom: 1.5px dashed #111;
+            border-bottom: 1.5px dashed var(--border-color-dashed);
             border-radius: 0;
             font-size: 14px;
-            color: #111;
+            color: var(--text-color);
         }
 
         .loader {
@@ -357,8 +391,8 @@
         }
 
         .spinner {
-            border: 6px solid #fff;
-            border-top: 6px solid #111;
+            border: 6px solid var(--spinner-bg);
+            border-top: 6px solid var(--spinner-fg);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -376,11 +410,11 @@
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             margin: 20px 0;
             display: none;
-            border: 2.5px solid #111;
-            background: rgba(255,255,255,0.7);
-            color: #111;
+            border: 2.5px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
             font-weight: 600;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
         }
 
         .status-message.show {
@@ -388,15 +422,15 @@
         }
 
         .status-message.success {
-            background: rgba(255,255,255,0.7);
-            color: #111;
-            border-color: #111;
+            background: var(--input-bg);
+            color: var(--text-color);
+            border-color: var(--border-color);
         }
 
         .status-message.error {
-            background: rgba(255,255,255,0.7);
-            color: #c00;
-            border-color: #c00;
+            background: var(--input-bg);
+            color: var(--error-color);
+            border-color: var(--error-border-color);
         }
 
         .documents-list {
@@ -408,20 +442,20 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 24px;
-            background: rgba(255,255,255,0.7);
+            background: var(--input-bg);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             margin: 16px 0;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
-            border: 2.5px solid #111;
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
+            border: 2.5px solid var(--border-color);
         }
 
         .doc-name {
             font-weight: 700;
-            color: #111;
+            color: var(--text-color);
         }
 
         .doc-info {
-            color: #444;
+            color: var(--text-color-light);
             font-size: 14px;
         }
 
@@ -430,35 +464,35 @@
             padding: 15px 0 0 0;
             background: none;
             border: none;
-            border-top: 2.5px solid #111;
+            border-top: 2.5px solid var(--border-color);
             border-radius: 0;
         }
 
         .example-queries h4 {
-            color: #111;
+            color: var(--text-color);
             margin-bottom: 10px;
         }
 
         .example-query {
             display: inline-block;
             padding: 8px 18px;
-            background: rgba(255,255,255,0.85);
-            border: 2.5px solid #111;
+            background: var(--interactive-bg);
+            border: 2.5px solid var(--border-color);
             border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
             margin: 5px 10px 5px 0;
             cursor: pointer;
             font-size: 14px;
-            color: #111;
+            color: var(--text-color);
             font-weight: 600;
-            box-shadow: 0 1.5px 6px 0 rgba(0,0,0,0.04);
+            box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
             transition: box-shadow 0.2s, color 0.2s, border-color 0.2s, background 0.2s;
         }
 
         .example-query:hover {
-            color: #fff;
-            background: #111;
-            border-color: #111;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+            color: var(--interactive-text-hover);
+            background: var(--interactive-bg-hover);
+            border-color: var(--interactive-bg-hover);
+            box-shadow: 0 8px 32px 0 var(--shadow-xl);
         }
 
         @media (max-width: 768px) {
@@ -471,6 +505,52 @@
             }
             .main-content {
                 padding: 20px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #f5f5f5;
+                --text-color-subtle: #a0a0a0;
+                --text-color-light: #bbbbbb;
+                --primary-accent: #bb86fc;
+                --primary-accent-hover: #d1c4e9;
+                --container-bg: rgba(24, 26, 27, 0.85);
+                --header-bg: rgba(30, 32, 33, 0.92);
+                --interactive-bg: rgba(40, 42, 43, 0.85);
+                --interactive-bg-hover: #bb86fc;
+                --interactive-text-hover: #121212;
+                --input-bg: rgba(40, 42, 43, 0.7);
+                --box-bg: rgba(40, 42, 43, 0.7);
+                --results-bg: rgba(30, 32, 33, 0.92);
+                --border-color: #bb86fc;
+                --border-color-dashed: #777;
+                --border-color-hover: #d1c4e9;
+                --error-color: #cf6679;
+                --error-border-color: #cf6679;
+                --spinner-bg: #121212;
+                --spinner-fg: #bb86fc;
+                --shadow-sm: rgba(255, 255, 255, 0.05);
+                --shadow-md: rgba(255, 255, 255, 0.08);
+                --shadow-lg: rgba(255, 255, 255, 0.12);
+                --shadow-xl: rgba(255, 255, 255, 0.15);
+                --header-line-color: #bb86fc;
+                --header-line-opacity: 0.3;
+                --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="3" fill="none" opacity="0.08"/><path d="M0,300 Q300,400 600,300 T1200,300" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.06"/><path d="M0,500 Q200,600 400,500 T800,500 T1200,500" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.05"/></svg>');
+            }
+
+            .upload-btn:hover, .submit-btn:hover, .example-query:hover {
+                color: var(--interactive-text-hover);
+                background: var(--interactive-bg-hover);
+                border-color: var(--interactive-bg-hover);
+            }
+
+            .tab.active {
+                border-bottom-color: var(--primary-accent);
+            }
+            .tab:hover {
+                border-bottom-color: var(--primary-accent-hover);
             }
         }
     </style>
