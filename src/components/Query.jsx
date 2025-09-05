@@ -56,7 +56,10 @@ const Query = () => {
               <h4>{t('query.sources')}</h4>
               <ul className="sources-list">
                 {result.sources.map((source, index) => (
-                  <li key={index}>{source}</li>
+                  <li key={index}>
+                    <p><strong>Source Text:</strong> {source.text}</p>
+                    <p><em>(Confidence Score: {source.score.toFixed(2)}, Document ID: {source.doc_id})</em></p>
+                  </li>
                 ))}
               </ul>
             </div>
