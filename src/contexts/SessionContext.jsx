@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createSession } from '../services/api';
-
-export const SessionContext = createContext();
+import { SessionContext } from './sessionContext.js';
 
 export const SessionProvider = ({ children }) => {
   const [sessionId, setSessionId] = useState(null);

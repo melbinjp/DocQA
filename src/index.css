@@ -138,8 +138,17 @@ input:focus, textarea:focus {
   box-shadow: 0 4px 16px 0 var(--shadow-lg);
 }
 
-.language-switcher button {
-    padding: 8px 12px;
-    font-size: 14px;
-    margin-left: 5px;
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-color-hover);
+  box-shadow: 0 4px 16px 0 var(--shadow-lg);
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+

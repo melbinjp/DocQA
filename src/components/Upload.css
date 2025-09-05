@@ -1,17 +1,23 @@
 .upload-section {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 2rem;
+  text-align: center;
 }
 
-.upload-card {
-  background: var(--container-bg);
+.upload-area {
+  border: 2px dashed var(--border-color-dashed);
+  border-radius: 10px;
   padding: 2rem;
-  border-radius: 24px;
-  box-shadow: 0 4px 16px 0 var(--shadow-lg);
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
-.upload-card h3 {
-  margin-top: 0;
+.upload-area.drag-over {
+  border-color: var(--border-color-hover);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.upload-label {
+  cursor: pointer;
+}
+
+.url-input {
+  margin-top: 1rem;
 }
