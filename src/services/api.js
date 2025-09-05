@@ -86,6 +86,9 @@ export const query = async (sessionId, q, doc_ids = null) => {
         payload.doc_ids = doc_ids;
     }
     const response = await api.post(`/sessions/${sessionId}/query`, payload);
+    if (response.data.error) {
+        throw new Error(response.data.error);
+    }
     return response.data;
 };
 
