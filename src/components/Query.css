@@ -18,10 +18,11 @@
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
   resize: vertical;
   min-height: 100px;
+  box-sizing: border-box;
 }
 
 .query-button {
@@ -30,12 +31,12 @@
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #007bff;
+  background-color: var(--primary-color);
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .query-button:disabled {
@@ -46,9 +47,9 @@
 }
 
 .query-button:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: var(--primary-color-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 /* Example Questions */
