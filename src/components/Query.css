@@ -1,23 +1,149 @@
-.query-section {
+/* Query Section */
+.query-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.query-input-area {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 2rem;
 }
 
-.result-section {
-  margin-top: 2rem;
+.query-textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.query-button {
+  align-self: flex-end;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.query-button:disabled {
+  background-color: #a0cfff;
+  cursor: not-allowed;
+}
+
+.query-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Example Questions */
+.example-questions {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.example-questions h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.example-questions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.example-questions li {
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.3s ease;
+}
+
+.example-questions li:hover {
+  text-decoration-color: #007bff;
+}
+
+/* Loader and Error */
+.loader {
+  text-align: center;
+  font-size: 1.2rem;
   padding: 2rem;
-  background: var(--container-bg);
-  border-radius: 24px;
-  box-shadow: 0 4px 16px 0 var(--shadow-lg);
+}
+
+.error-message {
+  text-align: center;
+  color: #d9534f;
+  background-color: #f2dede;
+  padding: 1rem;
+  border: 1px solid #ebccd1;
+  border-radius: 8px;
+}
+
+/* Result Section */
+.result-section.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
 }
 
 .result-section h3 {
   margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.sources-section {
+  margin-top: 1.5rem;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.sources-section h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #555;
 }
 
 .sources-list {
-  list-style-type: disc;
-  padding-left: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.source-item {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.source-text {
+  font-style: italic;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}
+
+.source-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0;
 }
