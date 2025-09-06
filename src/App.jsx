@@ -6,6 +6,8 @@ import Query from './components/Query';
 import Documents from './components/Documents';
 import { SessionContext } from './contexts/SessionContext';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import ThemeSwitcher from './components/ThemeSwitcher';
+import SessionStatus from './components/SessionStatus';
 
 function App() {
   const { sessionId, loading } = useContext(SessionContext);
@@ -18,9 +20,17 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-          <h1>📄 Chat with a Doc</h1>
-          <p>Upload documents and chat with them using AI-powered search</p>
-          <LanguageSwitcher />
+        <div className="header-content">
+          <div>
+            <h1>📄 Chat with a Doc</h1>
+            <p>Upload documents and chat with them using AI-powered search</p>
+          </div>
+          <div className="header-controls">
+            <SessionStatus />
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+          </div>
+        </div>
       </header>
       <nav>
         <ul>
@@ -35,7 +45,6 @@ function App() {
           </li>
         </ul>
       </nav>
-      <p>{t('session.id', { sessionId })}</p>
 
       <main>
         <Routes>

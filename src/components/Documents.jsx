@@ -10,31 +10,85 @@ const Documents = () => {
   const { documents, removeDocument } = useContext(DocumentContext);
   const { t } = useTranslation();
   const [error, setError] = useState('');
+  const [deletingDocs, setDeletingDocs] = useState(new Set());
 
   const handleDelete = async (docId) => {
+    setDeletingDocs(prev => new Set([...prev, docId]));
+    setError('');
+    
     try {
       await deleteDocument(sessionId, docId);
       removeDocument(docId);
     } catch (err) {
-      setError(t('documents.error', { message: err.message }));
+      setError(`Failed to delete document: ${err.message}`);
+    } finally {
+      setDeletingDocs(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(docId);
+        return newSet;
+      });
     }
+  };
+
+  const getDisplayName = (doc) => {
+    if (doc.name) {
+      // For URLs, show domain name
+      if (doc.name.startsWith('http')) {
+        try {
+          const url = new URL(doc.name);
+          return url.hostname + url.pathname;
+        } catch {
+          return doc.name;
+        }
+      }
+      return doc.name;
+    }
+    return `Document ${doc.doc_id.substring(0, 8)}...`;
+  };
+
+  const getDocumentType = (doc) => {
+    if (doc.name) {
+      if (doc.name.startsWith('http')) return 'URL';
+      if (doc.name.endsWith('.pdf')) return 'PDF';
+      if (doc.name.endsWith('.docx')) return 'DOCX';
+      if (doc.name.endsWith('.txt')) return 'TXT';
+    }
+    return 'Document';
   };
 
   return (
     <div className="documents-section">
-      <h2>{t('documents.title')}</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h3>📚 My Documents</h3>
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
       {documents.length === 0 ? (
-        <p>{t('documents.noDocuments')}</p>
+        <p style={{ color: '#666', textAlign: 'center', padding: '40px' }}>
+          No documents uploaded yet. Go to the Upload tab to add documents.
+        </p>
       ) : (
-        <ul className="documents-list">
+        <div className="documents-list">
           {documents.map((doc) => (
-            <li className="document-item" key={doc.doc_id}>
-              <span>{doc.name} (ID: {doc.doc_id})</span>
-              <button onClick={() => handleDelete(doc.doc_id)}>{t('documents.delete')}</button>
-            </li>
+            <div className="doc-item" key={doc.doc_id}>
+              <div className="doc-details">
+                <div className="doc-name">{getDisplayName(doc)}</div>
+                <div className="doc-info">
+                  {getDocumentType(doc)} • {doc.chunks || 0} chunks
+                </div>
+              </div>
+              <button 
+                className="delete-btn"
+                onClick={() => handleDelete(doc.doc_id)}
+                disabled={deletingDocs.has(doc.doc_id)}
+                title="Delete document"
+              >
+                {deletingDocs.has(doc.doc_id) ? '⏳' : '🗑️'}
+              </button>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

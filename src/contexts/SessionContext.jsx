@@ -25,6 +25,21 @@ export const SessionProvider = ({ children }) => {
           const newSession = await createSession();
           storedSessionId = newSession.session_id;
           localStorage.setItem('sessionId', storedSessionId);
+        } else {
+          // Check if session is still valid
+          try {
+            const { checkSessionHealth } = await import('../services/api');
+            await checkSessionHealth(storedSessionId);
+            console.log('Session is valid');
+          } catch (error) {
+            console.log('Session expired or invalid. Creating new session.');
+            const newSession = await createSession();
+            storedSessionId = newSession.session_id;
+            localStorage.setItem('sessionId', storedSessionId);
+            // Clear expired session data
+            localStorage.removeItem('docqa-documents');
+            localStorage.removeItem('docqa-query-history');
+          }
         }
         setSessionId(storedSessionId);
       } catch (error) {

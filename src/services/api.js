@@ -71,11 +71,13 @@ export const ingestFile = async (sessionId, file) => {
 };
 
 export const ingestUrl = async (sessionId, url) => {
-  // The backend expects a JSON payload for URL ingestion
-  const response = await api.post(`/sessions/${sessionId}/ingest`, { url }, {
+  // Send URL as form data to match the API spec
+  const formData = new FormData();
+  formData.append('url', url);
+  const response = await api.post(`/sessions/${sessionId}/ingest`, formData, {
     headers: {
-      'Content-Type': 'application/json',
-    }
+      'Content-Type': 'multipart/form-data',
+    },
   });
   return response.data;
 };
@@ -94,6 +96,21 @@ export const query = async (sessionId, q, doc_ids = null) => {
 
 export const deleteDocument = async (sessionId, docId) => {
     const response = await api.delete(`/sessions/${sessionId}/documents/${docId}`);
+    return response.data;
+};
+
+export const getSessionStatus = async (sessionId) => {
+    const response = await api.get(`/sessions/${sessionId}/status`);
+    return response.data;
+};
+
+export const refreshSession = async (sessionId) => {
+    const response = await api.post(`/sessions/${sessionId}/refresh`);
+    return response.data;
+};
+
+export const checkSessionHealth = async (sessionId) => {
+    const response = await api.get(`/sessions/${sessionId}/health`);
     return response.data;
 };
 
