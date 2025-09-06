@@ -124,11 +124,36 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-  background-color: var(--primary-color-dark);
+input, textarea {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2.5px solid var(--border-color);
+  border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--input-bg);
+  color: var(--text-color);
+  box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
+  box-sizing: border-box;
 }
 
-/* Language Switcher */
-.language-switcher {
-  margin-left: auto;
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-color-hover);
+  box-shadow: 0 4px 16px 0 var(--shadow-lg);
 }
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-color-hover);
+  box-shadow: 0 4px 16px 0 var(--shadow-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+

@@ -20,6 +20,7 @@ function App() {
       <header className="header">
           <h1>📄 Chat with a Doc</h1>
           <p>Upload documents and chat with them using AI-powered search</p>
+          <LanguageSwitcher />
       </header>
       <nav>
         <ul>
@@ -33,9 +34,6 @@ function App() {
             <NavLink to="/documents">{t('nav.documents')}</NavLink>
           </li>
         </ul>
-        <div className="language-switcher">
-          <LanguageSwitcher />
-        </div>
       </nav>
       <p>{t('session.id', { sessionId })}</p>
 

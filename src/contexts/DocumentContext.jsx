@@ -1,6 +1,5 @@
-import React, { createContext, useState } from 'react';
-
-export const DocumentContext = createContext();
+import React, { useState } from 'react';
+import { DocumentContext } from './documentContext.js';
 
 export const DocumentProvider = ({ children }) => {
   const [documents, setDocuments] = useState([]);

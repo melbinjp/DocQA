@@ -1,0 +1,39 @@
+.language-switcher {
+  position: relative;
+}
+
+.language-switcher-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.globe-icon {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.language-short {
+  font-weight: bold;
+  color: var(--primary-accent);
+}
+
+.language-full {
+  font-weight: bold;
+}
+
+.language-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--container-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

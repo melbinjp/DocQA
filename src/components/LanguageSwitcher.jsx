@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select';
+import './LanguageSwitcher.css';
+
+const languageMap = {
+  en: {
+    short: 'EN',
+    full: 'English',
+  },
+  es: {
+    short: 'ES',
+    full: 'Español',
+  },
+};
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const languages = [
-    { value: 'en', label: 'English' },
-    { value: 'es', label: 'Español' },
-    { value: 'fr', label: 'Français' },
-    { value: 'de', label: 'Deutsch' },
-    { value: 'ja', label: '日本語' },
-    { value: 'ko', label: '한국어' },
-    { value: 'zh', label: '中文' },
-  ];
-
-  const currentLanguage = languages.find(lang => lang.value === i18n.language);
-
-  const changeLanguage = (selectedOption) => {
-    i18n.changeLanguage(selectedOption.value);
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsOpen(false);
   };
 
   return (
-    <Select
-      value={currentLanguage}
-      onChange={changeLanguage}
-      options={languages}
-      isSearchable={true}
-      placeholder="Select a language..."
-    />
+    <div className="language-switcher">
+      <button className="language-switcher-button" onClick={() => setIsOpen(!isOpen)}>
+        <span className="globe-icon">🌐</span>
+        {!isOpen && <span className="language-short">{languageMap[i18n.language]?.short}</span>}
+        {isOpen && <span className="language-full">{languageMap[i18n.language]?.full}</span>}
+      </button>
+      {isOpen && (
+        <div className="language-options">
+          <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('es')}>Español</button>
+        </div>
+      )}
+    </div>
   );
 };
 
