@@ -75,7 +75,7 @@ const Documents = () => {
               <div className="doc-details">
                 <div className="doc-name">{getDisplayName(doc)}</div>
                 <div className="doc-info">
-                  {getDocumentType(doc)} • {doc.chunks || 0} chunks
+                  {getDocumentType(doc)} • {doc.num_chunks || 0} chunks
                 </div>
               </div>
               <button 
