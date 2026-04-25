@@ -230,6 +230,11 @@ input:focus, textarea:focus {
 }
 
 @media (max-width: 768px) {
+  .header {
+    border-radius: 0;
+    padding: 24px 20px 16px 20px;
+  }
+
   .header h1 {
     font-size: 2em;
   }
@@ -241,25 +246,39 @@ input:focus, textarea:focus {
   
   .header-controls {
     justify-content: center;
+    flex-wrap: wrap;
   }
   
   .container {
     border-radius: 0;
-    margin: 20px auto 0 auto;
+    margin: 0;
+    padding: 0 15px 30px 15px;
+    box-shadow: none;
+    border: none;
   }
   
+  nav {
+    padding: 20px 0 0 0;
+  }
+
   nav ul {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 10px;
     width: 100%;
   }
   
   nav a {
     width: 100%;
-    max-width: 340px;
+    max-width: none;
     text-align: center;
     font-size: 16px;
+    border-radius: 16px;
+  }
+  
+  button, input, textarea {
+    border-radius: 16px !important;
+    min-height: 44px; /* Touch target minimum */
   }
 }
 
@@ -292,4 +311,38 @@ input:focus, textarea:focus {
   --header-line-color: #bb86fc;
   --header-line-opacity: 0.3;
   --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="3" fill="none" opacity="0.08"/><path d="M0,300 Q300,400 600,300 T1200,300" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.06"/><path d="M0,500 Q200,600 400,500 T800,500 T1200,500" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.05"/></svg>');
+}
+
+/* Footer Styling */
+.site-footer {
+  margin-top: 40px;
+  padding: 24px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color-subtle);
+  background: var(--container-bg);
+  font-size: 14px;
+}
+
+.site-footer p {
+  margin-bottom: 12px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--primary-accent);
+  text-decoration: underline;
 }

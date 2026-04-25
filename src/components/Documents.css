@@ -82,3 +82,17 @@
   font-size: 14px;
   box-shadow: 0 1px 4px 0 var(--shadow-sm);
 }
+
+@media (max-width: 768px) {
+  .doc-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  
+  .delete-btn {
+    align-self: flex-end;
+  }
+}
