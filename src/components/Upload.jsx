@@ -234,13 +234,13 @@ const Upload = () => {
       >
         <div style={{ fontSize: '48px', marginBottom: '20px' }}>📁</div>
         <h3>Drop your files here or click to upload</h3>
-        <p style={{ color: '#666', margin: '10px 0' }}>Supports PDF, DOCX, TXT (max 5MB)</p>
+        <p style={{ color: '#666', margin: '10px 0' }}>Supports PDF, DOCX, TXT, XLSX, CSV, PPTX, HTML, MD (max 5MB)</p>
         
         <input 
           type="file" 
           id="fileInput" 
           style={{ display: 'none' }} 
-          accept=".pdf,.docx,.txt"
+          accept=".pdf,.docx,.txt,.xlsx,.csv,.pptx,.html,.htm,.md"
           multiple
           onChange={handleFileChange}
         />

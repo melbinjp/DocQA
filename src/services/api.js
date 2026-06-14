@@ -71,12 +71,9 @@ export const ingestFile = async (sessionId, file) => {
 };
 
 export const ingestUrl = async (sessionId, url) => {
-  // Send URL as form data to match the API spec
-  const formData = new FormData();
-  formData.append('url', url);
-  const response = await api.post(`/sessions/${sessionId}/ingest`, formData, {
+  const response = await api.post(`/sessions/${sessionId}/ingest`, { url }, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json',
     },
   });
   return response.data;
