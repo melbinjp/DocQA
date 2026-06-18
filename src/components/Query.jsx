@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/SessionContext';
 import { DocumentContext } from '../contexts/DocumentContext';
 import { query, queryStream } from '../services/api';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './Query.css';
 
 const Query = () => {
@@ -154,8 +156,12 @@ const Query = () => {
       {result && (
         <div className="results-section">
           <div className="result-header">📝 Answer</div>
-          <div className="answer-box">
-            <div className="answer-text">{result.answer}</div>
+          <div className="answer-box pretext-paper">
+            <div className="answer-text">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {result.answer}
+              </ReactMarkdown>
+            </div>
           </div>
           
           {result.sources && result.sources.length > 0 && (

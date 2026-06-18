@@ -95,11 +95,135 @@
   box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
 }
 
-.answer-text {
+.answer-box.pretext-paper {
+  background: #fbfbf9; /* Creamy paper background */
+  border: 1.5px solid #e3e3dc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), inset 0 0 40px rgba(0, 0, 0, 0.005);
+  padding: 32px 36px;
+  border-radius: 8px; /* Clean structured paper edges */
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #1c1c1a;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+/* Light / Dark Mode support for Paper style */
+[data-theme='dark'] .answer-box.pretext-paper {
+  background: #1c1c1e;
+  border-color: #2c2c2e;
+  color: #f2f2f7;
+}
+
+.answer-box.pretext-paper .answer-text {
   font-size: 16px;
-  line-height: 1.6;
-  color: var(--text-color);
-  white-space: pre-wrap;
+  line-height: 1.7;
+  color: inherit;
+  white-space: normal; /* Override pre-wrap to let react-markdown structure paragraphs */
+}
+
+/* Markdown styling inside pretext-paper */
+.answer-box.pretext-paper h1,
+.answer-box.pretext-paper h2,
+.answer-box.pretext-paper h3,
+.answer-box.pretext-paper h4 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: inherit;
+  font-weight: 700;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+  line-height: 1.25;
+}
+
+.answer-box.pretext-paper h1 { font-size: 1.5em; border-bottom: 1.5px solid rgba(0, 0, 0, 0.08); padding-bottom: 0.3em; }
+[data-theme='dark'] .answer-box.pretext-paper h1 { border-bottom-color: rgba(255, 255, 255, 0.08); }
+
+.answer-box.pretext-paper h2 { font-size: 1.3em; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding-bottom: 0.2em; }
+[data-theme='dark'] .answer-box.pretext-paper h2 { border-bottom-color: rgba(255, 255, 255, 0.05); }
+
+.answer-box.pretext-paper h3 { font-size: 1.15em; }
+
+.answer-box.pretext-paper p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.answer-box.pretext-paper ul,
+.answer-box.pretext-paper ol {
+  margin-top: 0;
+  margin-bottom: 1em;
+  padding-left: 1.6em;
+}
+
+.answer-box.pretext-paper li {
+  margin-bottom: 0.4em;
+}
+
+.answer-box.pretext-paper blockquote {
+  margin: 0 0 1em 0;
+  padding: 0 1.2em;
+  color: #666;
+  border-left: 4px solid #d3d3cd;
+  font-style: italic;
+}
+[data-theme='dark'] .answer-box.pretext-paper blockquote {
+  color: #a1a1a6;
+  border-left-color: #48484a;
+}
+
+.answer-box.pretext-paper code {
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+[data-theme='dark'] .answer-box.pretext-paper code {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.answer-box.pretext-paper pre {
+  background: #f4f4f0;
+  border: 1px solid #e1e1da;
+  padding: 16px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+[data-theme='dark'] .answer-box.pretext-paper pre {
+  background: #2c2c2e;
+  border-color: #3a3a3c;
+}
+
+.answer-box.pretext-paper pre code {
+  background: none;
+  padding: 0;
+  font-size: 100%;
+}
+
+.answer-box.pretext-paper table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+  font-size: 90%;
+}
+
+.answer-box.pretext-paper th,
+.answer-box.pretext-paper td {
+  border: 1px solid #e3e3dc;
+  padding: 8px 12px;
+  text-align: left;
+}
+[data-theme='dark'] .answer-box.pretext-paper th,
+[data-theme='dark'] .answer-box.pretext-paper td {
+  border-color: #3a3a3c;
+}
+
+.answer-box.pretext-paper th {
+  background: rgba(0, 0, 0, 0.02);
+  font-weight: bold;
+}
+[data-theme='dark'] .answer-box.pretext-paper th {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .sources-box {
