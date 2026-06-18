@@ -147,15 +147,24 @@
   margin-bottom: 1em;
 }
 
-.answer-box.pretext-paper ul,
-.answer-box.pretext-paper ol {
+.answer-box.pretext-paper ul {
+  list-style-type: disc !important;
   margin-top: 0;
   margin-bottom: 1em;
-  padding-left: 1.6em;
+  padding-left: 2em !important;
+}
+
+.answer-box.pretext-paper ol {
+  list-style-type: decimal !important;
+  margin-top: 0;
+  margin-bottom: 1em;
+  padding-left: 2em !important;
 }
 
 .answer-box.pretext-paper li {
   margin-bottom: 0.4em;
+  display: list-item !important;
+  list-style: inherit !important;
 }
 
 .answer-box.pretext-paper blockquote {
