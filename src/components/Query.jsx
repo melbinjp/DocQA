@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/SessionContext';
 import { DocumentContext } from '../contexts/DocumentContext';
-import { query } from '../services/api';
+import { query, queryStream } from '../services/api';
 import './Query.css';
 
 const Query = () => {
@@ -62,15 +62,28 @@ const Query = () => {
     }
     setLoading(true);
     setError('');
-    setResult(null);
+    setResult({ answer: '', sources: [] });
     setQ(question); // Set the input to the question being asked
 
     try {
-      const response = await query(sessionId, question);
-      setResult(response);
-      saveToHistory(question, response.answer, response.sources);
+      let finalAnswer = '';
+      let finalSources = [];
+      const stream = queryStream(sessionId, question);
+      
+      for await (const chunk of stream) {
+        if (chunk.type === 'sources') {
+          finalSources = chunk.data;
+          setResult(prev => ({ ...prev, sources: finalSources }));
+        } else if (chunk.token) {
+          finalAnswer += chunk.token;
+          setResult(prev => ({ ...prev, answer: finalAnswer }));
+        }
+      }
+      
+      saveToHistory(question, finalAnswer, finalSources);
     } catch (err) {
       setError(t('query.error', { message: err.message }));
+      setResult(null);
     } finally {
       setLoading(false);
     }

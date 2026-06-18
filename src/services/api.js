@@ -91,6 +91,60 @@ export const query = async (sessionId, q, doc_ids = null) => {
     return response.data;
 };
 
+export const queryStream = async function*(sessionId, q, doc_ids = null) {
+    const payload = { q, stream: true };
+    if (doc_ids) {
+        payload.doc_ids = doc_ids;
+    }
+    
+    const response = await fetch(`${API_ROOT}/sessions/${sessionId}/query`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        let errMsg = `HTTP error! status: ${response.status}`;
+        try {
+            const errData = await response.json();
+            if (errData.detail) errMsg = errData.detail;
+        } catch (e) {}
+        throw new Error(errMsg);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let buffer = '';
+
+    while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+            if (line.startsWith('data: ')) {
+                const dataStr = line.substring(6);
+                try {
+                    const data = JSON.parse(dataStr);
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    yield data;
+                } catch (e) {
+                    if (e.message !== 'Unexpected end of JSON input') {
+                        throw e;
+                    }
+                }
+            }
+        }
+    }
+};
+
 export const deleteDocument = async (sessionId, docId) => {
     const response = await api.delete(`/sessions/${sessionId}/documents/${docId}`);
     return response.data;
