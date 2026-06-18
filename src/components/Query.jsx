@@ -158,9 +158,7 @@ const Query = () => {
           <div className="result-header">📝 Answer</div>
           <div className="answer-box pretext-paper">
             <div className="answer-text">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {result.answer}
-              </ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} children={result.answer} />
             </div>
           </div>
           
