@@ -19,6 +19,11 @@
         <a href="https://wecanuseai.com/contact.html">Contact</a>
       </div>
     </footer>
+  <script>
+    document.querySelectorAll('.copyright-year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+  </script>
 </body>
 </html>
 
