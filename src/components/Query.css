@@ -274,6 +274,15 @@
   font-weight: 500;
 }
 
+/* The page rides with the document name rather than becoming a third child of
+   .source-meta, which is `justify-content: space-between`: a third item would be
+   pushed to the middle and read as unrelated to the document it belongs to. */
+.source-page {
+  color: var(--text-color-subtle);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .loader {
   display: flex;
   justify-content: center;
