@@ -264,7 +264,7 @@
   color: var(--text-color-subtle);
   font-weight: 600;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 8px;
 }
@@ -274,9 +274,11 @@
   font-weight: 500;
 }
 
-/* The page rides with the document name rather than becoming a third child of
-   .source-meta, which is `justify-content: space-between`: a third item would be
-   pushed to the middle and read as unrelated to the document it belongs to. */
+/* The page rides with the document name rather than becoming a sibling in
+   .source-meta, so the two always read as one citation: this document, that
+   page. They were separated when .source-meta was `justify-content:
+   space-between` and had a score to push to the other edge; the score is gone
+   and the row is `flex-start` now, but keeping them one unit is still right. */
 .source-page {
   color: var(--text-color-subtle);
   font-weight: 600;
