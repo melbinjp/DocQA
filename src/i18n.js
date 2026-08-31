@@ -32,12 +32,14 @@ i18n
             selectedFiles: 'Selected Files:',
             orDivider: '— OR —',
             urlPlaceholder: 'Enter URLs separated by commas...',
+            tryExample: 'Nothing to hand? Try a real paper:',
+            tryExampleName: 'Attention Is All You Need (PDF, 15 pages)',
             urlsToProcess: 'URLs to process:',
             submitAll: 'Submit All',
             selectFilesOrUrls: 'Please select files or enter URLs',
             results: 'Processing Results:',
             readyPrompt: 'Ready to ask questions about your documents?',
-            goToQuery: 'Go to Query Section'
+            goToQuery: 'Ask a question'
           },
           query: {
             title: 'Ask a Question',
@@ -54,7 +56,7 @@ i18n
             noDocuments: 'No documents uploaded yet.',
             delete: 'Delete',
             error: 'Error deleting document: {{message}}',
-            noDocumentsHint: 'No documents uploaded yet. Go to the Upload tab to add documents.',
+            noDocumentsHint: 'No documents yet. Add one above.',
             deleteTitle: 'Delete document',
             fallbackType: 'Document',
           },
@@ -84,6 +86,8 @@ i18n
             selectedFiles: 'Archivos seleccionados:',
             orDivider: '— O —',
             urlPlaceholder: 'Ingrese URLs separadas por comas...',
+            tryExample: 'Sin documento a mano? Pruebe un articulo real:',
+            tryExampleName: 'Attention Is All You Need (PDF, 15 paginas)',
             urlsToProcess: 'URLs a procesar:',
             submitAll: 'Enviar todo',
             selectFilesOrUrls: 'Seleccione archivos o ingrese URLs',

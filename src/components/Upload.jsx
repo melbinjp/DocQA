@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/session-context';
 import { DocumentContext } from '../contexts/document-context';
 import { ingestFile, ingestUrl } from '../services/api';
+
+const EXAMPLE_URL = 'https://arxiv.org/pdf/1706.03762';
 import './Upload.css';
 
 const Upload = () => {
@@ -36,6 +38,14 @@ const Upload = () => {
 
   const removeFile = (index) => {
     setFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  // A document that is on hand for everyone, so the demo is one click rather than
+  // a hunt for a PDF. A real paper with real pages, because the thing worth showing
+  // is that an answer names the page it came from.
+  const useExampleUrl = () => {
+    setUrlInput(EXAMPLE_URL);
+    setUrls([EXAMPLE_URL]);
   };
 
   const removeUrl = (index) => {
@@ -275,6 +285,13 @@ const Upload = () => {
           placeholder={t('upload.urlPlaceholder')}
         />
       </div>
+
+      <p className="url-example">
+        {t('upload.tryExample')}{' '}
+        <button type="button" className="link-button" onClick={useExampleUrl}>
+          {t('upload.tryExampleName')}
+        </button>
+      </p>
 
       {urls.length > 0 && (
         <div className="url-list">

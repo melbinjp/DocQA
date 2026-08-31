@@ -310,3 +310,24 @@
     padding: 15px;
   }
 }
+/* The example URL, offered as prose rather than another button competing with Submit. */
+.url-example {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: #1d4ed8;
+}
