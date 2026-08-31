@@ -1,6 +1,5 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../contexts/session-context';
 import { DocumentContext } from '../contexts/document-context';
 import { ingestFile, ingestUrl } from '../services/api';
@@ -10,7 +9,6 @@ const Upload = () => {
   const { sessionId } = useContext(SessionContext);
   const { addDocument } = useContext(DocumentContext);
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [urlInput, setUrlInput] = useState('');
   const [urls, setUrls] = useState([]);
@@ -330,7 +328,7 @@ const Upload = () => {
               <p>✨ {t('upload.readyPrompt')}</p>
               <button 
                 className="go-to-query-btn" 
-                onClick={() => navigate('/query')}
+                onClick={() => document.getElementById('query')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 💬 {t('upload.goToQuery')}
               </button>

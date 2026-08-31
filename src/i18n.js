@@ -14,11 +14,6 @@ i18n
     resources: {
       en: {
         translation: {
-          nav: {
-            upload: 'Upload',
-            query: 'Query',
-            documents: 'Documents',
-          },
           upload: {
             title: 'Upload Documents',
             selectFileOrUrl: 'Please select a file or enter a URL.',
@@ -71,11 +66,6 @@ i18n
       },
       es: {
         translation: {
-          nav: {
-            upload: 'Subir',
-            query: 'Preguntar',
-            documents: 'Documentos',
-          },
           upload: {
             title: 'Subir Documentos',
             selectFileOrUrl: 'Por favor seleccione un archivo o ingrese una URL.',

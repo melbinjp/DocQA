@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Upload from './components/Upload';
 import Query from './components/Query';
@@ -17,6 +16,10 @@ function App() {
     return <div className="container">{t('session.loading')}</div>;
   }
 
+  // One page, in the order the work actually happens: put a document in, see what
+  // is in, ask about it. The three tabs described one workflow as three places,
+  // which meant the answer and the document it came from could never be on screen
+  // together. Nothing was gained by hiding two thirds of a three-step task.
   return (
     <div className="container">
       <header className="header">
@@ -32,26 +35,17 @@ function App() {
           </div>
         </div>
       </header>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="/">{t('nav.upload')}</NavLink>
-          </li>
-          <li>
-            <NavLink to="/query">{t('nav.query')}</NavLink>
-          </li>
-          <li>
-            <NavLink to="/documents">{t('nav.documents')}</NavLink>
-          </li>
-        </ul>
-      </nav>
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Upload />} />
-          <Route path="/query" element={<Query />} />
-          <Route path="/documents" element={<Documents />} />
-        </Routes>
+      <main className="single-page">
+        <section id="upload" className="page-section">
+          <Upload />
+        </section>
+        <section id="documents" className="page-section">
+          <Documents />
+        </section>
+        <section id="query" className="page-section">
+          <Query />
+        </section>
       </main>
     </div>
   );
