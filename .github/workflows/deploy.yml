@@ -38,3 +38,47 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
+
+      # This job going green did not mean the site had changed. Pages is on the
+      # legacy branch source, so the step above only pushes `gh-pages`; GitHub's
+      # own "pages build and deployment" run publishes it afterwards and takes a
+      # minute or two more. On 2026-08-31 that gap was long enough to read the
+      # previous bundle off the live site and conclude a deploy had silently
+      # failed. A deploy that reports success before the thing is served is
+      # worth less than no report at all, so the job now waits for proof.
+      #
+      # The proof is the hashed asset, requested by name. Vite renames it on
+      # every content change, so a 200 on this exact path is the site serving
+      # this build and nothing weaker.
+      #
+      # It is the asset rather than index.html on purpose. `/` is cached at the
+      # edge and the CDN ignores the query string, so a cache-buster does not
+      # bust anything: two probes with different query strings came back with an
+      # identical `Age`, both from the same cached copy. Polling `/` would
+      # therefore read a stale document for as long as the TTL. A filename that
+      # has never existed before has nothing cached against it, so the first
+      # request has to reach the origin, which is exactly the question being
+      # asked. Stale data could only ever delay a pass here, never fake one,
+      # but waiting on a probe that cannot answer is not a check.
+      - name: Wait until the site actually serves this build
+        run: |
+          set -u
+          asset=$(grep -o 'assets/index-[A-Za-z0-9_-]*\.js' dist/index.html | head -1)
+          if [ -z "$asset" ]; then
+            echo "No hashed bundle in dist/index.html, so there is nothing to verify against."
+            exit 1
+          fi
+          url="https://docqa.wecanuseai.com/$asset"
+          echo "Waiting for $url"
+          for i in $(seq 1 90); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url?deploycheck=${GITHUB_RUN_ID}-$i" || echo 000)
+            if [ "$code" = "200" ]; then
+              echo "Live after $((i * 10))s."
+              exit 0
+            fi
+            echo "  $((i * 10))s: $code"
+            sleep 10
+          done
+          echo "Fifteen minutes and $url is still not being served."
+          echo "The branch push succeeded, so look at the 'pages build and deployment' run, not this one."
+          exit 1
