@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Upload from './components/Upload';
 import Query from './components/Query';
 import Documents from './components/Documents';
-import { SessionContext } from './contexts/SessionContext';
+import { SessionContext } from './contexts/session-context';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import SessionStatus from './components/SessionStatus';

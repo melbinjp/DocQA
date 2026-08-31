@@ -30,7 +30,19 @@ i18n
             submit: 'Submit',
             successFile: 'File uploaded successfully! Doc ID: {{docId}}',
             successUrl: 'URL ingested successfully! Doc ID: {{docId}}',
-            error: 'Error: {{message}}'
+            error: 'Error: {{message}}',
+            dropzone: 'Drop your files here or click to upload',
+            supported: 'Supports PDF, DOCX, TXT, XLSX, CSV, PPTX, HTML, MD (max 5MB)',
+            chooseFiles: 'Choose Files',
+            selectedFiles: 'Selected Files:',
+            orDivider: '— OR —',
+            urlPlaceholder: 'Enter URLs separated by commas...',
+            urlsToProcess: 'URLs to process:',
+            submitAll: 'Submit All',
+            selectFilesOrUrls: 'Please select files or enter URLs',
+            results: 'Processing Results:',
+            readyPrompt: 'Ready to ask questions about your documents?',
+            goToQuery: 'Go to Query Section'
           },
           query: {
             title: 'Ask a Question',
@@ -47,6 +59,9 @@ i18n
             noDocuments: 'No documents uploaded yet.',
             delete: 'Delete',
             error: 'Error deleting document: {{message}}',
+            noDocumentsHint: 'No documents uploaded yet. Go to the Upload tab to add documents.',
+            deleteTitle: 'Delete document',
+            fallbackType: 'Document',
           },
           session: {
             loading: 'Loading session...',
@@ -72,7 +87,19 @@ i18n
             submit: 'Enviar',
             successFile: '¡Archivo subido con éxito! ID del documento: {{docId}}',
             successUrl: '¡URL ingerida con éxito! ID del documento: {{docId}}',
-            error: 'Error: {{message}}'
+            error: 'Error: {{message}}',
+            dropzone: 'Suelte sus archivos aquí o haga clic para subir',
+            supported: 'Admite PDF, DOCX, TXT, XLSX, CSV, PPTX, HTML, MD (máx. 5MB)',
+            chooseFiles: 'Elegir archivos',
+            selectedFiles: 'Archivos seleccionados:',
+            orDivider: '— O —',
+            urlPlaceholder: 'Ingrese URLs separadas por comas...',
+            urlsToProcess: 'URLs a procesar:',
+            submitAll: 'Enviar todo',
+            selectFilesOrUrls: 'Seleccione archivos o ingrese URLs',
+            results: 'Resultados del procesamiento:',
+            readyPrompt: '¿Listo para hacer preguntas sobre sus documentos?',
+            goToQuery: 'Ir a la sección de consultas'
           },
           query: {
             title: 'Hacer una Pregunta',
@@ -89,6 +116,9 @@ i18n
             noDocuments: 'Aún no se han subido documentos.',
             delete: 'Eliminar',
             error: 'Error al eliminar el documento: {{message}}',
+            noDocumentsHint: 'Aún no se han subido documentos. Vaya a la pestaña Subir para añadir documentos.',
+            deleteTitle: 'Eliminar documento',
+            fallbackType: 'Documento',
           },
           session: {
             loading: 'Cargando sesión...',

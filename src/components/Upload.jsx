@@ -1,8 +1,8 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { SessionContext } from '../contexts/SessionContext';
-import { DocumentContext } from '../contexts/DocumentContext';
+import { SessionContext } from '../contexts/session-context';
+import { DocumentContext } from '../contexts/document-context';
 import { ingestFile, ingestUrl } from '../services/api';
 import './Upload.css';
 
@@ -104,7 +104,7 @@ const Upload = () => {
 
   const handleSubmit = async () => {
     if (files.length === 0 && urls.length === 0) {
-      showMessage('Please select files or enter URLs', 'error');
+      showMessage(t('upload.selectFilesOrUrls'), 'error');
       return;
     }
 
@@ -233,8 +233,8 @@ const Upload = () => {
         onDragLeave={handleDragLeave}
       >
         <div style={{ fontSize: '48px', marginBottom: '20px' }}>📁</div>
-        <h3>Drop your files here or click to upload</h3>
-        <p style={{ color: '#666', margin: '10px 0' }}>Supports PDF, DOCX, TXT, XLSX, CSV, PPTX, HTML, MD (max 5MB)</p>
+        <h3>{t('upload.dropzone')}</h3>
+        <p style={{ color: '#666', margin: '10px 0' }}>{t('upload.supported')}</p>
         
         <input 
           type="file" 
@@ -248,13 +248,13 @@ const Upload = () => {
           className="upload-btn" 
           onClick={() => document.getElementById('fileInput').click()}
         >
-          Choose Files
+          {t('upload.chooseFiles')}
         </button>
       </div>
 
       {files.length > 0 && (
         <div className="file-list">
-          <h4>Selected Files:</h4>
+          <h4>{t('upload.selectedFiles')}</h4>
           {files.map((file, index) => (
             <div key={index} className="file-item">
               <span>{file.name}</span>
@@ -265,7 +265,7 @@ const Upload = () => {
       )}
 
       <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
-        — OR —
+        {t('upload.orDivider')}
       </div>
 
       <div className="url-input-group">
@@ -274,13 +274,13 @@ const Upload = () => {
           value={urlInput}
           onChange={handleUrlInputChange}
           className="url-input" 
-          placeholder="Enter URLs separated by commas..."
+          placeholder={t('upload.urlPlaceholder')}
         />
       </div>
 
       {urls.length > 0 && (
         <div className="url-list">
-          <h4>URLs to process:</h4>
+          <h4>{t('upload.urlsToProcess')}</h4>
           {urls.map((url, index) => (
             <div key={index} className="url-item">
               <span>{url}</span>
@@ -295,7 +295,7 @@ const Upload = () => {
         onClick={handleSubmit} 
         disabled={loading || (files.length === 0 && urls.length === 0)}
       >
-        {loading ? 'Processing...' : 'Submit All'}
+        {loading ? t('upload.processing') : t('upload.submitAll')}
       </button>
 
       {message && (
@@ -306,7 +306,7 @@ const Upload = () => {
 
       {processResults.length > 0 && (
         <div className="process-results">
-          <h4>Processing Results:</h4>
+          <h4>{t('upload.results')}</h4>
           {processResults.map((result, index) => (
             <div key={index} className={`result-item ${result.status}`}>
               <div className="result-info">
@@ -327,12 +327,12 @@ const Upload = () => {
           
           {processResults.some(r => r.status === 'success') && (
             <div className="query-prompt">
-              <p>✨ Ready to ask questions about your documents?</p>
+              <p>✨ {t('upload.readyPrompt')}</p>
               <button 
                 className="go-to-query-btn" 
                 onClick={() => navigate('/query')}
               >
-                💬 Go to Query Section
+                💬 {t('upload.goToQuery')}
               </button>
             </div>
           )}
