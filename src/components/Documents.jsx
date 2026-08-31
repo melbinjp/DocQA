@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SessionContext } from '../contexts/SessionContext';
-import { DocumentContext } from '../contexts/DocumentContext';
+import { SessionContext } from '../contexts/session-context';
+import { DocumentContext } from '../contexts/document-context';
 import { deleteDocument } from '../services/api';
 import './Documents.css';
 
@@ -53,12 +53,12 @@ const Documents = () => {
       if (doc.name.endsWith('.docx')) return 'DOCX';
       if (doc.name.endsWith('.txt')) return 'TXT';
     }
-    return 'Document';
+    return t('documents.fallbackType');
   };
 
   return (
     <div className="documents-section">
-      <h3>📚 My Documents</h3>
+      <h3>📚 {t('documents.title')}</h3>
       {error && (
         <div className="error-message">
           {error}
@@ -66,7 +66,7 @@ const Documents = () => {
       )}
       {documents.length === 0 ? (
         <p style={{ color: '#666', textAlign: 'center', padding: '40px' }}>
-          No documents uploaded yet. Go to the Upload tab to add documents.
+          {t('documents.noDocumentsHint')}
         </p>
       ) : (
         <div className="documents-list">
@@ -82,7 +82,7 @@ const Documents = () => {
                 className="delete-btn"
                 onClick={() => handleDelete(doc.doc_id)}
                 disabled={deletingDocs.has(doc.doc_id)}
-                title="Delete document"
+                title={t('documents.deleteTitle')}
               >
                 {deletingDocs.has(doc.doc_id) ? '⏳' : '🗑️'}
               </button>

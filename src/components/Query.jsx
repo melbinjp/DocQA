@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SessionContext } from '../contexts/SessionContext';
-import { DocumentContext } from '../contexts/DocumentContext';
+import { SessionContext } from '../contexts/session-context';
+import { DocumentContext } from '../contexts/document-context';
 import { queryStream } from '../services/api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
