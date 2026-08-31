@@ -110,7 +110,9 @@ export const queryStream = async function*(sessionId, q, doc_ids = null) {
         try {
             const errData = await response.json();
             if (errData.detail) errMsg = errData.detail;
-        } catch (e) {}
+        } catch {
+            // The error body was not JSON. Keep the generic HTTP message.
+        }
         throw new Error(errMsg);
     }
 

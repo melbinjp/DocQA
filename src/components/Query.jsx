@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/SessionContext';
 import { DocumentContext } from '../contexts/DocumentContext';
-import { query, queryStream } from '../services/api';
+import { queryStream } from '../services/api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './Query.css';
@@ -174,7 +174,12 @@ const Query = () => {
                         <span>Confidence: {source.score > 1 ? source.score.toFixed(1) : (source.score * 100).toFixed(1)}%</span>
                       )}
                       {source.doc_id && (
-                        <span className="source-doc">📄 {getDocumentName(source.doc_id)}</span>
+                        <span className="source-doc">
+                          📄 {getDocumentName(source.doc_id)}
+                          {source.page != null && (
+                            <span className="source-page"> · {t('query.page', { page: source.page })}</span>
+                          )}
+                        </span>
                       )}
                     </div>
                   </div>

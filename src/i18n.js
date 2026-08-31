@@ -40,6 +40,7 @@ i18n
             error: 'Error performing query: {{message}}',
             answer: 'Answer',
             sources: 'Sources',
+            page: 'p.{{page}}',
           },
           documents: {
             title: 'My Documents',
@@ -81,6 +82,7 @@ i18n
             error: 'Error al realizar la consulta: {{message}}',
             answer: 'Respuesta',
             sources: 'Fuentes',
+            page: 'p.{{page}}',
           },
           documents: {
             title: 'Mis Documentos',

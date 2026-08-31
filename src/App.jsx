@@ -10,7 +10,7 @@ import ThemeSwitcher from './components/ThemeSwitcher';
 import SessionStatus from './components/SessionStatus';
 
 function App() {
-  const { sessionId, loading } = useContext(SessionContext);
+  const { loading } = useContext(SessionContext);
   const { t } = useTranslation();
 
   if (loading) {
