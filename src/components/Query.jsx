@@ -171,20 +171,23 @@ const Query = () => {
           
           {result.sources && result.sources.length > 0 && (
             <>
-              <div className="result-header">📚 Sources</div>
+              <div className="result-header">📚 {t('query.sources')} ({result.sources.length})</div>
               <div className="sources-box">
                 {result.sources.map((source, index) => (
-                  <div key={index} className="source-item">
-                    <div className="source-text">"{source.text || source}"</div>
-                    <div className="source-meta">
-                      {source.doc_id && (
-                        <span className="source-doc">
-                          {getDocumentName(source.doc_id)}
-                          {source.page != null && (
-                            <span className="source-page"> · {t('query.page', { page: source.page })}</span>
-                          )}
+                  <div key={index} className="citation-card">
+                    <div className="citation-header">
+                      <span className="citation-index">[{index + 1}]</span>
+                      <span className="citation-doc" title={getDocumentName(source.doc_id)}>
+                        {getDocumentName(source.doc_id)}
+                      </span>
+                      {source.page != null && (
+                        <span className="citation-page-badge">
+                          {t('query.page', { page: source.page })}
                         </span>
                       )}
+                    </div>
+                    <div className="citation-quote">
+                      "{source.text || source}"
                     </div>
                   </div>
                 ))}
