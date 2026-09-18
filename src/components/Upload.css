@@ -241,41 +241,136 @@
   word-break: break-word;
 }
 
-.query-prompt {
-  margin-top: 20px;
-  padding: 16px;
-  background: var(--results-bg);
-  border: 2px solid var(--border-color);
+/* Document Bar & Chips (Adaptive Single-Page State) */
+.document-bar {
+  background: var(--box-bg);
+  border: 2.5px solid var(--border-color);
   border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
-  text-align: center;
-  box-shadow: 0 2px 8px 0 var(--shadow-md);
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 12px 0 var(--shadow-sm);
+  transition: all 0.2s;
 }
 
-.query-prompt p {
-  margin: 0 0 12px 0;
+.document-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.document-bar-title {
+  font-weight: 700;
+  font-size: 1.15rem;
   color: var(--text-color);
-  font-weight: 600;
 }
 
-.go-to-query-btn {
+.add-doc-toggle-btn {
   background: var(--interactive-bg);
   color: var(--text-color);
   border: 2px solid var(--border-color);
-  border-radius: 20px 40px 20px 40px/30px 20px 40px 20px;
-  padding: 10px 24px;
-  font-size: 15px;
+  border-radius: 16px 32px 16px 32px/24px 16px 32px 16px;
+  padding: 8px 18px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
   margin: 0;
+  transition: all 0.2s;
 }
 
-.go-to-query-btn:hover {
+.add-doc-toggle-btn:hover {
   background: var(--interactive-bg-hover);
   color: var(--interactive-text-hover);
   border-color: var(--interactive-bg-hover);
-  box-shadow: 0 6px 20px 0 var(--shadow-lg);
-  transform: translateY(-1px);
+  box-shadow: 0 4px 16px 0 var(--shadow-md);
+}
+
+.doc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.doc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px 24px 16px 24px/20px 16px 20px 16px;
+  padding: 8px 14px;
+  font-size: 14px;
+  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+  max-width: 100%;
+}
+
+.doc-chip-name {
+  font-weight: 600;
+  color: var(--text-color);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-chip-badge {
+  font-size: 12px;
+  color: var(--text-color-subtle);
+  background: var(--box-bg);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.doc-chip-delete {
+  background: none;
+  color: var(--text-color-subtle);
+  border: none;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+  margin: 0;
+  border-radius: 50%;
+  box-shadow: none;
+  transition: color 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-chip-delete:hover:not(:disabled) {
+  color: var(--error-color);
+  background: rgba(204, 0, 0, 0.1);
+  box-shadow: none;
+}
+
+.doc-chip-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The example URL, offered as prose rather than another button competing with Submit. */
+.url-example {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: #1d4ed8;
 }
 
 @media (max-width: 768px) {
@@ -304,30 +399,29 @@
   .file-item, .url-item, .result-item {
     border-radius: 16px;
   }
-  
-  .query-prompt {
-    border-radius: 20px;
-    padding: 15px;
+
+  .document-bar {
+    padding: 14px 16px;
+    border-radius: 18px;
   }
-}
-/* The example URL, offered as prose rather than another button competing with Submit. */
-.url-example {
-  margin: 8px 0 0;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.link-button {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: #2563eb;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.link-button:hover {
-  color: #1d4ed8;
+  
+  .document-bar-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .doc-chip {
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 12px;
+  }
+  
+  .doc-chip-name {
+    max-width: 180px;
+  }
+  
+  .add-doc-toggle-btn {
+    border-radius: 14px;
+    min-height: 40px;
+  }
 }

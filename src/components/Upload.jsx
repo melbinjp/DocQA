@@ -2,14 +2,14 @@ import React, { useState, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/session-context';
 import { DocumentContext } from '../contexts/document-context';
-import { ingestFile, ingestUrl } from '../services/api';
+import { ingestFile, ingestUrl, deleteDocument } from '../services/api';
 
 const EXAMPLE_URL = 'https://arxiv.org/pdf/1706.03762';
 import './Upload.css';
 
 const Upload = () => {
   const { sessionId } = useContext(SessionContext);
-  const { addDocument } = useContext(DocumentContext);
+  const { documents, addDocument, removeDocument } = useContext(DocumentContext);
   const { t } = useTranslation();
   const [files, setFiles] = useState([]);
   const [urlInput, setUrlInput] = useState('');
@@ -19,6 +19,41 @@ const Upload = () => {
   const [messageType, setMessageType] = useState('');
   const [isDragOver, setIsDragOver] = useState(false);
   const [processResults, setProcessResults] = useState([]);
+  const [expanded, setExpanded] = useState(false);
+  const [deletingDocs, setDeletingDocs] = useState(new Set());
+  const [deleteError, setDeleteError] = useState('');
+
+  const handleDelete = async (docId) => {
+    setDeletingDocs(prev => new Set([...prev, docId]));
+    setDeleteError('');
+    try {
+      await deleteDocument(sessionId, docId);
+      removeDocument(docId);
+    } catch (err) {
+      setDeleteError(`Failed to delete document: ${err.message}`);
+    } finally {
+      setDeletingDocs(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(docId);
+        return newSet;
+      });
+    }
+  };
+
+  const getDisplayName = (doc) => {
+    if (doc.name) {
+      if (doc.name.startsWith('http')) {
+        try {
+          const url = new URL(doc.name);
+          return url.hostname + url.pathname;
+        } catch {
+          return doc.name;
+        }
+      }
+      return doc.name;
+    }
+    return `Document ${doc.doc_id.substring(0, 8)}...`;
+  };
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -222,6 +257,9 @@ const Upload = () => {
         setFiles([]);
         setUrls([]);
         setUrlInput('');
+        if (successCount > 0) {
+          setExpanded(false);
+        }
       }
       
     } catch (error) {
@@ -233,85 +271,45 @@ const Upload = () => {
   };
 
   return (
-    <div className="upload-tab">
-      <div 
-        className={`upload-section ${isDragOver ? 'dragover' : ''}`}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-      >
-        <div style={{ fontSize: '48px', marginBottom: '20px' }}>📁</div>
-        <h3>{t('upload.dropzone')}</h3>
-        <p style={{ color: '#666', margin: '10px 0' }}>{t('upload.supported')}</p>
-        
-        <input 
-          type="file" 
-          id="fileInput" 
-          style={{ display: 'none' }} 
-          accept=".pdf,.docx,.txt,.xlsx,.csv,.pptx,.html,.htm,.md"
-          multiple
-          onChange={handleFileChange}
-        />
-        <button 
-          className="upload-btn" 
-          onClick={() => document.getElementById('fileInput').click()}
-        >
-          {t('upload.chooseFiles')}
-        </button>
-      </div>
-
-      {files.length > 0 && (
-        <div className="file-list">
-          <h4>{t('upload.selectedFiles')}</h4>
-          {files.map((file, index) => (
-            <div key={index} className="file-item">
-              <span>{file.name}</span>
-              <button onClick={() => removeFile(index)} className="remove-btn">×</button>
-            </div>
-          ))}
+    <div className="upload-container">
+      {/* Document Bar: visible whenever there are active documents */}
+      {documents.length > 0 && (
+        <div className="document-bar">
+          <div className="document-bar-header">
+            <span className="document-bar-title">📚 {t('documents.title')} ({documents.length})</span>
+            <button 
+              type="button"
+              className="add-doc-toggle-btn"
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? `▲ ${t('upload.closeUploadForm')}` : t('upload.addDocument')}
+            </button>
+          </div>
+          <div className="doc-chips">
+            {documents.map((doc) => (
+              <div className="doc-chip" key={doc.doc_id}>
+                <span className="doc-chip-name" title={doc.name}>{getDisplayName(doc)}</span>
+                <span className="doc-chip-badge">{doc.num_chunks || 0} chunks</span>
+                <button
+                  type="button"
+                  className="doc-chip-delete"
+                  onClick={() => handleDelete(doc.doc_id)}
+                  disabled={deletingDocs.has(doc.doc_id)}
+                  title={t('documents.deleteTitle')}
+                >
+                  {deletingDocs.has(doc.doc_id) ? '⏳' : '×'}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
-      <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
-        {t('upload.orDivider')}
-      </div>
-
-      <div className="url-input-group">
-        <input 
-          type="text" 
-          value={urlInput}
-          onChange={handleUrlInputChange}
-          className="url-input" 
-          placeholder={t('upload.urlPlaceholder')}
-        />
-      </div>
-
-      <p className="url-example">
-        {t('upload.tryExample')}{' '}
-        <button type="button" className="link-button" onClick={useExampleUrl}>
-          {t('upload.tryExampleName')}
-        </button>
-      </p>
-
-      {urls.length > 0 && (
-        <div className="url-list">
-          <h4>{t('upload.urlsToProcess')}</h4>
-          {urls.map((url, index) => (
-            <div key={index} className="url-item">
-              <span>{url}</span>
-              <button onClick={() => removeUrl(index)} className="remove-btn">×</button>
-            </div>
-          ))}
+      {deleteError && (
+        <div className="status-message show error">
+          {deleteError}
         </div>
       )}
-
-      <button 
-        className="submit-btn" 
-        onClick={handleSubmit} 
-        disabled={loading || (files.length === 0 && urls.length === 0)}
-      >
-        {loading ? t('upload.processing') : t('upload.submitAll')}
-      </button>
 
       {message && (
         <div className={`status-message show ${messageType}`}>
@@ -319,36 +317,110 @@ const Upload = () => {
         </div>
       )}
 
-      {processResults.length > 0 && (
-        <div className="process-results">
-          <h4>{t('upload.results')}</h4>
-          {processResults.map((result, index) => (
-            <div key={index} className={`result-item ${result.status}`}>
-              <div className="result-info">
-                <span className="result-icon">
-                  {result.status === 'success' ? '✅' : '❌'}
-                </span>
-                <span className="result-name">{result.name}</span>
-                <span className="result-type">({result.type})</span>
-              </div>
-              {result.status === 'success' && (
-                <span className="result-doc-id">ID: {result.docId}</span>
-              )}
-              {result.status === 'error' && (
-                <span className="result-error">{result.error}</span>
-              )}
+      {/* Full upload form: visible when 0 documents, or when user clicks + Add Document */}
+      {(documents.length === 0 || expanded) && (
+        <div className="upload-form-wrapper">
+          <div 
+            className={`upload-section ${isDragOver ? 'dragover' : ''}`}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+          >
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>📁</div>
+            <h3>{t('upload.dropzone')}</h3>
+            <p style={{ color: '#666', margin: '10px 0' }}>{t('upload.supported')}</p>
+            
+            <input 
+              type="file" 
+              id="fileInput" 
+              style={{ display: 'none' }} 
+              accept=".pdf,.docx,.txt,.xlsx,.csv,.pptx,.html,.htm,.md"
+              multiple
+              onChange={handleFileChange}
+            />
+            <button 
+              type="button"
+              className="upload-btn" 
+              onClick={() => document.getElementById('fileInput').click()}
+            >
+              {t('upload.chooseFiles')}
+            </button>
+          </div>
+
+          {files.length > 0 && (
+            <div className="file-list">
+              <h4>{t('upload.selectedFiles')}</h4>
+              {files.map((file, index) => (
+                <div key={index} className="file-item">
+                  <span>{file.name}</span>
+                  <button type="button" onClick={() => removeFile(index)} className="remove-btn">×</button>
+                </div>
+              ))}
             </div>
-          ))}
-          
-          {processResults.some(r => r.status === 'success') && (
-            <div className="query-prompt">
-              <p>✨ {t('upload.readyPrompt')}</p>
-              <button 
-                className="go-to-query-btn" 
-                onClick={() => document.getElementById('query')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                💬 {t('upload.goToQuery')}
-              </button>
+          )}
+
+          <div style={{ textAlign: 'center', margin: '20px 0', color: '#666' }}>
+            {t('upload.orDivider')}
+          </div>
+
+          <div className="url-input-group">
+            <input 
+              type="text" 
+              value={urlInput}
+              onChange={handleUrlInputChange}
+              className="url-input" 
+              placeholder={t('upload.urlPlaceholder')}
+            />
+          </div>
+
+          <p className="url-example">
+            {t('upload.tryExample')}{' '}
+            <button type="button" className="link-button" onClick={useExampleUrl}>
+              {t('upload.tryExampleName')}
+            </button>
+          </p>
+
+          {urls.length > 0 && (
+            <div className="url-list">
+              <h4>{t('upload.urlsToProcess')}</h4>
+              {urls.map((url, index) => (
+                <div key={index} className="url-item">
+                  <span>{url}</span>
+                  <button type="button" onClick={() => removeUrl(index)} className="remove-btn">×</button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button 
+            type="button"
+            className="submit-btn" 
+            onClick={handleSubmit} 
+            disabled={loading || (files.length === 0 && urls.length === 0)}
+          >
+            {loading ? t('upload.processing') : t('upload.submitAll')}
+          </button>
+
+          {processResults.length > 0 && (
+            <div className="process-results">
+              <h4>{t('upload.results')}</h4>
+              {processResults.map((result, index) => (
+                <div key={index} className={`result-item ${result.status}`}>
+                  <div className="result-info">
+                    <span className="result-icon">
+                      {result.status === 'success' ? '✅' : '❌'}
+                    </span>
+                    <span className="result-name">{result.name}</span>
+                    <span className="result-type">({result.type})</span>
+                  </div>
+                  {result.status === 'success' && (
+                    <span className="result-doc-id">ID: {result.docId}</span>
+                  )}
+                  {result.status === 'error' && (
+                    <span className="result-error">{result.error}</span>
+                  )}
+                </div>
+              ))}
             </div>
           )}
         </div>

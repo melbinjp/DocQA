@@ -39,11 +39,14 @@ i18n
             selectFilesOrUrls: 'Please select files or enter URLs',
             results: 'Processing Results:',
             readyPrompt: 'Ready to ask questions about your documents?',
-            goToQuery: 'Ask a question'
+            goToQuery: 'Ask a question',
+            addDocument: '+ Add Document',
+            closeUploadForm: 'Close'
           },
           query: {
             title: 'Ask a Question',
             placeholder: 'Enter your question',
+            noDocsPlaceholder: 'Upload a document above to start chatting',
             submit: 'Submit Query',
             searching: 'Searching...',
             error: 'Error performing query: {{message}}',
@@ -93,11 +96,14 @@ i18n
             selectFilesOrUrls: 'Seleccione archivos o ingrese URLs',
             results: 'Resultados del procesamiento:',
             readyPrompt: '¿Listo para hacer preguntas sobre sus documentos?',
-            goToQuery: 'Ir a la sección de consultas'
+            goToQuery: 'Ir a la sección de consultas',
+            addDocument: '+ Añadir Documento',
+            closeUploadForm: 'Cerrar'
           },
           query: {
             title: 'Hacer una Pregunta',
             placeholder: 'Escriba su pregunta',
+            noDocsPlaceholder: 'Sube un documento arriba para empezar a chatear',
             submit: 'Enviar Pregunta',
             searching: 'Buscando...',
             error: 'Error al realizar la consulta: {{message}}',
