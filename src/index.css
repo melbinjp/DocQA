@@ -241,31 +241,31 @@ input:focus, textarea:focus {
   --text-color: #f5f5f5;
   --text-color-subtle: #a1a1aa;
   --text-color-light: #d4d4d8;
-  --primary-accent: #facc15;
-  --primary-accent-hover: #fde047;
+  --primary-accent: #fbbf24;
+  --primary-accent-hover: #f59e0b;
   --container-bg: rgba(24, 24, 27, 0.9);
   --header-bg: rgba(30, 30, 34, 0.95);
   --interactive-bg: rgba(39, 39, 42, 0.85);
   --interactive-bg-hover: #27272a;
-  --interactive-text-hover: #facc15;
+  --interactive-text-hover: #fbbf24;
   --input-bg: rgba(39, 39, 42, 0.7);
   --box-bg: rgba(39, 39, 42, 0.7);
   --results-bg: rgba(26, 26, 30, 0.95);
-  --border-color: #f4f4f5;
+  --border-color: #e4e4e7;
   --border-color-dashed: #a1a1aa;
   --border-color-hover: #ffffff;
   --error-color: #f87171;
   --error-border-color: #ef4444;
   --spinner-bg: #18181b;
-  --spinner-fg: #facc15;
+  --spinner-fg: #fbbf24;
   --shadow-sm: rgba(0, 0, 0, 0.35);
   --shadow-md: rgba(0, 0, 0, 0.5);
   --shadow-lg: rgba(0, 0, 0, 0.65);
   --shadow-xl: rgba(0, 0, 0, 0.8);
   --shadow-solid: #000;
-  --header-line-color: #facc15;
+  --header-line-color: #fbbf24;
   --header-line-opacity: 0.2;
-  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.04"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.03"/><circle cx="92%25" cy="14%25" r="130" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23facc15" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23facc15" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23facc15" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23facc15" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
+  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.04"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.03"/><circle cx="92%25" cy="14%25" r="130" stroke="%23fbbf24" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23fbbf24" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23fbbf24" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23fbbf24" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23fbbf24" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23fbbf24" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23fbbf24" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
 }
 
 /* Footer Styling */
