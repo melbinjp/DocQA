@@ -48,7 +48,11 @@ const SessionStatus = () => {
   return (
     <div className={`session-status ${isLowTime ? 'warning' : ''}`}>
       <span className="session-info">
-        ⏱️ {status.remaining_minutes ? `${Math.round(status.remaining_minutes)}m left` : 'Active'}
+        ⏱️ {status.remaining_minutes ? (
+          <>
+            {Math.round(status.remaining_minutes)}m<span className="session-left-word"> left</span>
+          </>
+        ) : 'Active'}
       </span>
       <button 
         className="refresh-btn" 

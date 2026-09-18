@@ -22,9 +22,8 @@ function App() {
     <div className="container">
       <header className="header">
         <div className="header-content">
-          <div>
+          <div className="header-brand">
             <h1>📄 Chat with a Doc</h1>
-            <p>Upload documents and chat with them using AI-powered search</p>
           </div>
           <div className="header-controls">
             <SessionStatus />

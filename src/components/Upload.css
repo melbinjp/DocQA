@@ -241,41 +241,42 @@
   word-break: break-word;
 }
 
-/* Document Bar & Chips (Adaptive Single-Page State) */
-.document-bar {
+/* Document Deck & Ingestion Shelf (Adaptive Single-Page State) */
+.document-deck {
   background: var(--box-bg);
-  border: 2.5px solid var(--border-color);
-  border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
-  padding: 16px 24px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  padding: 16px 20px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 12px 0 var(--shadow-sm);
-  transition: all 0.2s;
+  box-shadow: 0 2px 8px 0 var(--shadow-sm);
+  transition: all 0.2s ease;
 }
 
-.document-bar-header {
+.deck-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
 }
 
-.document-bar-title {
+.deck-title {
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-color);
 }
 
 .add-doc-toggle-btn {
   background: var(--interactive-bg);
   color: var(--text-color);
-  border: 2px solid var(--border-color);
-  border-radius: 16px 32px 16px 32px/24px 16px 32px 16px;
-  padding: 8px 18px;
-  font-size: 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   margin: 0;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .add-doc-toggle-btn:hover {
@@ -297,9 +298,9 @@
   gap: 8px;
   background: var(--input-bg);
   border: 1.5px solid var(--border-color);
-  border-radius: 16px 24px 16px 24px/20px 16px 20px 16px;
-  padding: 8px 14px;
-  font-size: 14px;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-size: 13px;
   box-shadow: 0 1px 4px 0 var(--shadow-sm);
   max-width: 100%;
 }
@@ -314,7 +315,7 @@
 }
 
 .doc-chip-badge {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-color-subtle);
   background: var(--box-bg);
   padding: 2px 8px;
@@ -351,12 +352,163 @@
   cursor: not-allowed;
 }
 
-/* The example URL, offered as prose rather than another button competing with Submit. */
+.ingestion-deck-body {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingestion-strip {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.deck-dropzone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--input-bg);
+  border: 2px dashed var(--border-color-dashed);
+  border-radius: 14px;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+.deck-dropzone.dragover {
+  border-color: var(--border-color-hover);
+  background: var(--header-bg);
+  box-shadow: 0 4px 16px 0 var(--shadow-md);
+}
+
+.deck-choose-btn {
+  background: var(--interactive-bg);
+  color: var(--text-color);
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+}
+
+.deck-choose-btn:hover {
+  background: var(--interactive-bg-hover);
+  color: var(--interactive-text-hover);
+  border-color: var(--interactive-bg-hover);
+}
+
+.deck-drop-hint {
+  font-size: 13px;
+  color: var(--text-color-subtle);
+  white-space: nowrap;
+}
+
+.deck-urlzone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.deck-url-input {
+  width: 100%;
+  padding: 8px 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 13px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.deck-url-input:focus {
+  outline: none;
+  border-color: var(--border-color-hover);
+  box-shadow: 0 2px 8px 0 var(--shadow-md);
+}
+
+.pending-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pending-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.pending-pill button {
+  background: none;
+  border: none;
+  color: var(--text-color-subtle);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pending-pill button:hover {
+  color: var(--error-color);
+}
+
+.deck-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.deck-submit-btn {
+  background: var(--interactive-bg);
+  color: var(--text-color);
+  padding: 8px 20px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+}
+
+.deck-submit-btn:hover:not(:disabled) {
+  color: var(--interactive-text-hover);
+  background: var(--interactive-bg-hover);
+  border-color: var(--interactive-bg-hover);
+  box-shadow: 0 4px 16px 0 var(--shadow-md);
+}
+
+.deck-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The example URL */
 .url-example {
-  margin: 8px 0 0;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #666;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-color-subtle);
 }
 
 .link-button {
@@ -364,82 +516,101 @@
   border: none;
   padding: 0;
   font: inherit;
-  color: #2563eb;
+  color: var(--brand-color, #2563eb);
   text-decoration: underline;
   cursor: pointer;
 }
 
 .link-button:hover {
-  color: #1d4ed8;
+  color: var(--interactive-bg-hover, #1d4ed8);
 }
 
 @media (max-width: 768px) {
-  .upload-section {
-    padding: 20px 10px;
-    border-radius: 24px;
-  }
-  
-  .upload-btn, .submit-btn {
-    width: 100%;
-    margin: 10px 0 0 0;
-    display: block;
-    font-size: 16px;
-  }
-  
-  .url-input-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .url-input {
-    width: 100%;
-    margin-bottom: 0;
-  }
-  
-  .file-item, .url-item, .result-item {
-    border-radius: 16px;
-  }
-
-  .document-bar {
+  .document-deck {
     padding: 12px 14px;
-    border-radius: 18px;
+    border-radius: 16px;
+    margin-bottom: 16px;
   }
   
-  .document-bar-header {
+  .deck-header {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
-  .document-bar-title {
+  .deck-title {
     font-size: 0.95rem;
     white-space: nowrap;
   }
-  
+
+  .add-doc-toggle-btn {
+    border-radius: 10px;
+    min-height: 28px;
+    padding: 4px 10px;
+    font-size: 12px;
+    margin: 0;
+    white-space: nowrap;
+  }
+
   .doc-chip {
     width: 100%;
     justify-content: space-between;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 6px 10px;
   }
   
   .doc-chip-name {
     max-width: 180px;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .doc-chip-badge {
     font-size: 11px;
     padding: 2px 6px;
   }
-  
-  .add-doc-toggle-btn {
-    border-radius: 12px;
-    min-height: 28px;
-    padding: 3px 10px;
+
+  .ingestion-strip {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .deck-dropzone {
+    padding: 8px 12px;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+
+  .deck-choose-btn {
+    padding: 5px 12px;
     font-size: 12px;
-    margin: 0;
-    white-space: nowrap;
+  }
+
+  .deck-drop-hint {
+    font-size: 12px;
+  }
+
+  .deck-url-input {
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .deck-footer-row {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .deck-submit-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .url-example {
+    text-align: center;
   }
 }
+

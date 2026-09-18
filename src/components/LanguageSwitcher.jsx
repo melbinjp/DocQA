@@ -22,12 +22,15 @@ const LanguageSwitcher = () => {
     setIsOpen(false);
   };
 
+  const currentLang = (i18n.language || 'en').split('-')[0];
+  const currentInfo = languageMap[currentLang] || languageMap.en;
+
   return (
     <div className="language-switcher">
       <button className="language-switcher-button" onClick={() => setIsOpen(!isOpen)}>
         <span className="globe-icon">🌐</span>
-        {!isOpen && <span className="language-short">{languageMap[i18n.language]?.short}</span>}
-        {isOpen && <span className="language-full">{languageMap[i18n.language]?.full}</span>}
+        {!isOpen && <span className="language-short">{currentInfo.short}</span>}
+        {isOpen && <span className="language-full">{currentInfo.full}</span>}
       </button>
       {isOpen && (
         <div className="language-options">

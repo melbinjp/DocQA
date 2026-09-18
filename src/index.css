@@ -62,7 +62,7 @@ body {
 .container {
   width: 100%;
   max-width: 1400px;
-  margin: 40px auto 0 auto;
+  margin: 16px auto 0 auto;
   background: var(--container-bg);
   border-radius: 36px 80px 36px 80px/60px 36px 80px 36px;
   box-shadow: 0 12px 40px 0 var(--shadow-xl), 0 1.5px 0 var(--border-color), 0 0 0 6px var(--bg-color);
@@ -75,11 +75,11 @@ body {
 .header {
   background: var(--header-bg);
   color: var(--text-color);
-  border-bottom: 0;
+  border-bottom: 1.5px solid var(--border-color);
   border-radius: 36px 80px 0 0/60px 36px 0 0;
-  box-shadow: 0 2px 16px 0 var(--shadow-md);
-  padding: 36px 40px 24px 40px;
-  margin-bottom: 0;
+  box-shadow: 0 2px 12px 0 var(--shadow-sm);
+  padding: 14px 28px;
+  margin-bottom: 24px;
   position: relative;
 }
 
@@ -87,39 +87,27 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
   width: 100%;
+  gap: 12px;
 }
 
-.header-content > div {
-  flex: 1;
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.header-brand h1 {
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .header-controls {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
-}
-
-.header::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--header-line-color) 60%, transparent 100%);
-  border-radius: 2px;
-  margin: 24px auto 0 auto;
-  opacity: var(--header-line-opacity);
-}
-
-.header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-
-.header p {
-  font-size: 1.1em;
-  opacity: 0.9;
+  flex-shrink: 0;
 }
 
 main {
@@ -179,34 +167,51 @@ input:focus, textarea:focus {
 }
 
 @media (max-width: 768px) {
-  .header {
-    border-radius: 0;
-    padding: 24px 20px 16px 20px;
+  body {
+    padding: 10px 8px;
   }
 
-  .header h1 {
-    font-size: 2em;
-  }
-  
-  .header-content {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .header-controls {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
   .container {
     border-radius: 0;
     margin: 0;
-    padding: 0 15px 30px 15px;
+    padding: 0 4px 20px 4px;
     box-shadow: none;
     border: none;
   }
+
+  .header {
+    border-radius: 12px;
+    padding: 8px 10px;
+    margin-bottom: 14px;
+  }
+
+  .header-brand h1 {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
   
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
   
+  .header-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .header-controls button {
+    margin: 0 !important;
+    min-height: 28px !important;
+    padding: 3px 6px !important;
+  }
   
   button, input, textarea {
     border-radius: 16px !important;
