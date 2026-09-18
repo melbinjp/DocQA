@@ -244,11 +244,11 @@
 /* Document Deck & Ingestion Shelf (Adaptive Single-Page State) */
 .document-deck {
   background: var(--box-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 20px;
-  padding: 16px 20px;
+  border: 2.5px solid var(--border-color);
+  border-radius: 28px 64px 28px 64px/52px 28px 52px 28px;
+  padding: 18px 24px;
   margin-bottom: 24px;
-  box-shadow: 0 2px 8px 0 var(--shadow-sm);
+  box-shadow: 0 4px 20px 0 var(--shadow-md), 2px 3px 0 var(--border-color);
   transition: all 0.2s ease;
 }
 
@@ -260,29 +260,37 @@
 }
 
 .deck-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--text-color);
+}
+
+.deck-concentric-icon {
+  color: var(--primary-accent);
 }
 
 .deck-step-badge {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--primary-accent, #6366f1);
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 .add-doc-toggle-btn {
   background: var(--interactive-bg);
   color: var(--text-color);
-  border: 1.5px solid var(--border-color);
-  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 14px 28px 14px 28px/24px 14px 28px 14px;
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   margin: 0;
-  transition: all 0.2s;
+  box-shadow: 1px 2px 0 var(--border-color);
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
@@ -290,7 +298,8 @@
   background: var(--interactive-bg-hover);
   color: var(--interactive-text-hover);
   border-color: var(--interactive-bg-hover);
-  box-shadow: 0 4px 16px 0 var(--shadow-md);
+  box-shadow: 2px 3px 0 var(--border-color);
+  transform: translate(-1px, -1px);
 }
 
 .doc-chips {
@@ -304,12 +313,16 @@
   align-items: center;
   gap: 8px;
   background: var(--input-bg);
-  border: 1.5px solid var(--border-color);
-  border-radius: 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 14px 28px 14px 28px/24px 14px 28px 14px;
   padding: 6px 12px;
   font-size: 13px;
-  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+  box-shadow: 1px 2px 0 var(--border-color);
   max-width: 100%;
+}
+
+.doc-chip-icon {
+  color: var(--text-color-subtle);
 }
 
 .doc-chip-name {
@@ -326,7 +339,7 @@
   color: var(--text-color-subtle);
   background: var(--box-bg);
   padding: 2px 8px;
-  border-radius: 8px;
+  border-radius: 10px 18px 10px 18px/16px 10px 18px 10px;
   border: 1px solid var(--border-color);
   white-space: nowrap;
 }
@@ -335,7 +348,7 @@
   background: none;
   color: var(--text-color-subtle);
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   padding: 2px 4px;
@@ -343,7 +356,7 @@
   border-radius: 50%;
   box-shadow: none;
   transition: color 0.15s, background 0.15s;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -379,36 +392,42 @@
   justify-content: center;
   gap: 10px;
   background: var(--input-bg);
-  border: 2px dashed var(--border-color-dashed);
-  border-radius: 14px;
+  border: 2.5px dashed var(--border-color-dashed);
+  border-radius: 20px 44px 20px 44px/36px 20px 36px 20px;
   padding: 8px 16px;
+  box-shadow: 0 1.5px 6px 0 var(--shadow-sm);
   transition: all 0.2s ease;
 }
 
 .deck-dropzone.dragover {
   border-color: var(--border-color-hover);
   background: var(--header-bg);
-  box-shadow: 0 4px 16px 0 var(--shadow-md);
+  box-shadow: 0 4px 16px 0 var(--shadow-md), inset 0 0 0 2px var(--border-color-hover);
 }
 
 .deck-choose-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--interactive-bg);
   color: var(--text-color);
-  border: 1.5px solid var(--border-color);
-  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 14px 28px 14px 28px/24px 14px 28px 14px;
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+  box-shadow: 1px 2px 0 var(--border-color);
 }
 
 .deck-choose-btn:hover {
   background: var(--interactive-bg-hover);
   color: var(--interactive-text-hover);
   border-color: var(--interactive-bg-hover);
+  box-shadow: 2px 3px 0 var(--border-color);
+  transform: translate(-1px, -1px);
 }
 
 .deck-drop-hint {
@@ -425,20 +444,21 @@
 
 .deck-url-input {
   width: 100%;
-  padding: 8px 14px;
-  border: 1.5px solid var(--border-color);
-  border-radius: 12px;
+  padding: 9px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 18px 38px 18px 38px/32px 18px 38px 18px;
   font-size: 13px;
   background: var(--input-bg);
   color: var(--text-color);
-  box-shadow: 0 1px 4px 0 var(--shadow-sm);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 1px 2px 0 var(--border-color);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 
 .deck-url-input:focus {
   outline: none;
   border-color: var(--border-color-hover);
-  box-shadow: 0 2px 8px 0 var(--shadow-md);
+  box-shadow: 2px 4px 0 var(--border-color-hover);
+  transform: translate(-1px, -1px);
 }
 
 .pending-pills {
@@ -453,28 +473,30 @@
   align-items: center;
   gap: 8px;
   background: var(--input-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 4px 10px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px 24px 12px 24px/20px 12px 24px 12px;
+  padding: 5px 12px;
   font-size: 12px;
   color: var(--text-color);
+  box-shadow: 1px 2px 0 var(--border-color);
 }
 
 .pending-pill button {
   background: none;
   border: none;
   color: var(--text-color-subtle);
-  font-size: 14px;
   cursor: pointer;
-  padding: 0 2px;
+  padding: 1px 2px;
   line-height: 1;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.15s, transform 0.15s;
 }
 
 .pending-pill button:hover {
   color: var(--error-color);
+  transform: scale(1.15);
 }
 
 .deck-footer-row {
@@ -499,39 +521,44 @@
 }
 
 .deck-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--interactive-bg);
   color: var(--text-color);
-  padding: 8px 20px;
-  border: 1.5px solid var(--border-color);
-  border-radius: 12px;
+  padding: 8px 22px;
+  border: 2px solid var(--border-color);
+  border-radius: 14px 28px 14px 28px/24px 14px 28px 14px;
   font-size: 13px;
   cursor: pointer;
   font-weight: 700;
   transition: all 0.2s ease;
   white-space: nowrap;
-  box-shadow: 0 1px 4px 0 var(--shadow-sm);
+  box-shadow: 1px 2px 0 var(--border-color);
 }
 
 .deck-submit-btn:hover:not(:disabled) {
   color: var(--interactive-text-hover);
   background: var(--interactive-bg-hover);
   border-color: var(--interactive-bg-hover);
-  box-shadow: 0 4px 16px 0 var(--shadow-md);
+  box-shadow: 2px 3px 0 var(--border-color);
+  transform: translate(-1px, -1px);
 }
 
 .deck-submit-btn.ready {
   background: var(--primary-accent, #6366f1);
   color: #fff;
-  border-color: var(--primary-accent, #6366f1);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-color: var(--border-color);
+  box-shadow: 2px 3px 0 var(--border-color), 0 0 0 3px rgba(99, 102, 241, 0.25);
   animation: pulse-ready 2.5s infinite ease-in-out;
 }
 
 .deck-submit-btn.ready:hover {
   background: var(--primary-accent-hover, #4f46e5);
   color: #fff;
-  border-color: var(--primary-accent-hover, #4f46e5);
-  box-shadow: 0 4px 16px 0 rgba(99, 102, 241, 0.35);
+  border-color: var(--border-color);
+  box-shadow: 3px 4px 0 var(--border-color), 0 0 0 4px rgba(99, 102, 241, 0.35);
+  transform: translate(-1px, -1px);
 }
 
 @keyframes pulse-ready {
@@ -571,8 +598,8 @@
 
 @media (max-width: 768px) {
   .document-deck {
-    padding: 12px 14px;
-    border-radius: 16px;
+    padding: 14px 16px;
+    border-radius: 20px 40px 20px 40px/32px 20px 40px 20px;
     margin-bottom: 16px;
   }
   
@@ -589,7 +616,7 @@
   }
 
   .add-doc-toggle-btn {
-    border-radius: 10px;
+    border-radius: 12px 22px 12px 22px/18px 12px 22px 12px;
     min-height: 28px;
     padding: 4px 10px;
     font-size: 12px;
@@ -600,7 +627,7 @@
   .doc-chip {
     width: 100%;
     justify-content: space-between;
-    border-radius: 10px;
+    border-radius: 12px 24px 12px 24px/18px 12px 24px 12px;
     padding: 6px 10px;
   }
   
@@ -622,12 +649,13 @@
   .deck-dropzone {
     padding: 8px 12px;
     justify-content: space-between;
-    border-radius: 10px;
+    border-radius: 16px 32px 16px 32px/24px 16px 32px 16px;
   }
 
   .deck-choose-btn {
     padding: 5px 12px;
     font-size: 12px;
+    border-radius: 12px 22px 12px 22px/18px 12px 22px 12px;
   }
 
   .deck-drop-hint {
@@ -635,7 +663,7 @@
   }
 
   .deck-url-input {
-    border-radius: 10px;
+    border-radius: 14px 28px 14px 28px/22px 14px 28px 14px;
     padding: 8px 12px;
     font-size: 12px;
   }

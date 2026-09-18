@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { SessionContext } from '../contexts/session-context';
 import { getSessionStatus, refreshSession } from '../services/api';
+import { TimerSign, RotateSign, OrbitSpinner } from './Signs';
 import './SessionStatus.css';
 
 const SessionStatus = () => {
@@ -48,7 +49,8 @@ const SessionStatus = () => {
   return (
     <div className={`session-status ${isLowTime ? 'warning' : ''}`}>
       <span className="session-info">
-        ⏱️ {status.remaining_minutes ? (
+        <TimerSign size={13} className="session-timer-sign" />{' '}
+        {status.remaining_minutes ? (
           <>
             {Math.round(status.remaining_minutes)}m<span className="session-left-word"> left</span>
           </>
@@ -60,7 +62,7 @@ const SessionStatus = () => {
         disabled={refreshing}
         title="Refresh session"
       >
-        {refreshing ? '⏳' : '🔄'}
+        {refreshing ? <OrbitSpinner size={12} /> : <RotateSign size={12} />}
       </button>
     </div>
   );

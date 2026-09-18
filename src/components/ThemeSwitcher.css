@@ -1,13 +1,13 @@
 .theme-toggle {
   background: var(--interactive-bg);
   border: 1.5px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 12px 22px 12px 22px/18px 12px 22px 12px;
   cursor: pointer;
   padding: 4px 8px;
   color: var(--text-color);
   font-size: 1rem;
-  box-shadow: 0 1px 4px 0 var(--shadow-sm);
-  transition: box-shadow 0.2s, color 0.2s, border-color 0.2s, background 0.2s;
+  box-shadow: 1px 2px 0 var(--border-color);
+  transition: box-shadow 0.2s, color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
   margin: 0;
   display: inline-flex;
   align-items: center;
@@ -20,5 +20,6 @@
   color: var(--interactive-text-hover);
   background: var(--interactive-bg-hover);
   border-color: var(--interactive-bg-hover);
-  box-shadow: 0 8px 32px 0 var(--shadow-xl);
+  box-shadow: 2px 3px 0 var(--border-color);
+  transform: translate(-1px, -1px);
 }

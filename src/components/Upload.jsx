@@ -3,6 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/session-context';
 import { DocumentContext } from '../contexts/document-context';
 import { ingestFile, ingestUrl, deleteDocument } from '../services/api';
+import { 
+  NestedCirclesSign, 
+  DocSign, 
+  FolderSign, 
+  LinkSign, 
+  IngestSign, 
+  OrbitSpinner, 
+  CheckSign, 
+  CloseSign, 
+  AlertSign 
+} from './Signs';
 
 const EXAMPLE_URL = 'https://arxiv.org/pdf/1706.03762';
 import './Upload.css';
@@ -252,11 +263,11 @@ const Upload = () => {
 
       // Show summary
       if (successCount > 0 && errorCount === 0) {
-        showMessage(`✅ All ${successCount} items processed successfully!`, 'success');
+        showMessage(`All ${successCount} items processed successfully!`, 'success');
       } else if (successCount > 0 && errorCount > 0) {
-        showMessage(`⚠️ ${successCount} succeeded, ${errorCount} failed`, 'error');
+        showMessage(`${successCount} succeeded, ${errorCount} failed`, 'error');
       } else if (errorCount > 0) {
-        showMessage(`❌ All ${errorCount} items failed`, 'error');
+        showMessage(`All ${errorCount} items failed`, 'error');
       }
       
       // Clear form only if all succeeded
@@ -308,7 +319,8 @@ const Upload = () => {
     <div className="document-deck">
       <div className="deck-header">
         <span className="deck-title">
-          📚 {t('documents.title')} ({documents.length})
+          <NestedCirclesSign size={18} className="deck-concentric-icon" />
+          <span>{t('documents.title')} ({documents.length})</span>
           {documents.length === 0 && (
             <span className="deck-step-badge"> • {t('upload.step1Title')}</span>
           )}
@@ -319,20 +331,22 @@ const Upload = () => {
             className="add-doc-toggle-btn"
             onClick={() => setExpanded(!expanded)}
           >
-            {expanded ? `▲ ${t('upload.closeUploadForm')}` : t('upload.addDocument')}
+            {expanded ? t('upload.closeUploadForm') : t('upload.addDocument')}
           </button>
         )}
       </div>
 
       {deleteError && (
         <div className="status-message show error">
-          {deleteError}
+          <AlertSign size={15} /> <span>{deleteError}</span>
         </div>
       )}
 
       {message && (
         <div className={`status-message show ${messageType}`}>
-          {message}
+          {messageType === 'success' && <CheckSign size={15} />}
+          {messageType === 'error' && <AlertSign size={15} />}
+          <span>{message}</span>
         </div>
       )}
 
@@ -341,6 +355,7 @@ const Upload = () => {
         <div className="doc-chips">
           {documents.map((doc) => (
             <div className="doc-chip" key={doc.doc_id}>
+              <DocSign size={13} className="doc-chip-icon" />
               <span className="doc-chip-name" title={doc.name}>{getDisplayName(doc)}</span>
               <span className="doc-chip-badge">{doc.num_chunks || 0} chunks</span>
               <button
@@ -350,7 +365,7 @@ const Upload = () => {
                 disabled={deletingDocs.has(doc.doc_id)}
                 title={t('documents.deleteTitle')}
               >
-                {deletingDocs.has(doc.doc_id) ? '⏳' : '×'}
+                {deletingDocs.has(doc.doc_id) ? <OrbitSpinner size={12} /> : <CloseSign size={11} />}
               </button>
             </div>
           ))}
@@ -381,7 +396,8 @@ const Upload = () => {
                 className="deck-choose-btn" 
                 onClick={() => document.getElementById('fileInput').click()}
               >
-                📁 {t('upload.chooseFiles')}
+                <FolderSign size={15} />
+                <span>{t('upload.chooseFiles')}</span>
               </button>
               <span className="deck-drop-hint">or drop files</span>
             </div>
@@ -409,14 +425,20 @@ const Upload = () => {
             <div className="pending-pills">
               {files.map((file, index) => (
                 <div key={index} className="pending-pill file">
-                  <span>📄 {file.name}</span>
-                  <button type="button" onClick={() => removeFile(index)}>×</button>
+                  <DocSign size={13} />
+                  <span>{file.name}</span>
+                  <button type="button" onClick={() => removeFile(index)} title="Remove">
+                    <CloseSign size={11} />
+                  </button>
                 </div>
               ))}
               {urls.map((url, index) => (
                 <div key={index} className="pending-pill url">
-                  <span>🔗 {url}</span>
-                  <button type="button" onClick={() => removeUrl(index)}>×</button>
+                  <LinkSign size={13} />
+                  <span>{url}</span>
+                  <button type="button" onClick={() => removeUrl(index)} title="Remove">
+                    <CloseSign size={11} />
+                  </button>
                 </div>
               ))}
             </div>
@@ -443,12 +465,22 @@ const Upload = () => {
                 onClick={handleSubmit} 
                 disabled={loading || pendingItemsCount === 0}
               >
-                {loading 
-                  ? `⏳ ${t('upload.processing')}` 
-                  : pendingItemsCount > 0
-                    ? `${t('upload.ingestProcessCount', { count: pendingItemsCount })} →`
-                    : t('upload.ingestDocument')
-                }
+                {loading ? (
+                  <>
+                    <OrbitSpinner size={14} />
+                    <span>{t('upload.processing')}</span>
+                  </>
+                ) : pendingItemsCount > 0 ? (
+                  <>
+                    <IngestSign size={14} />
+                    <span>{t('upload.ingestProcessCount', { count: pendingItemsCount })} →</span>
+                  </>
+                ) : (
+                  <>
+                    <IngestSign size={14} />
+                    <span>{t('upload.ingestDocument')}</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -460,7 +492,7 @@ const Upload = () => {
                 <div key={index} className={`result-item ${result.status}`}>
                   <div className="result-info">
                     <span className="result-icon">
-                      {result.status === 'success' ? '✅' : '❌'}
+                      {result.status === 'success' ? <CheckSign size={14} /> : <CloseSign size={14} />}
                     </span>
                     <span className="result-name">{result.name}</span>
                     <span className="result-type">({result.type})</span>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { GlobeSign } from './Signs';
 import './LanguageSwitcher.css';
 
 const languageMap = {
@@ -28,7 +29,7 @@ const LanguageSwitcher = () => {
   return (
     <div className="language-switcher">
       <button className="language-switcher-button" onClick={() => setIsOpen(!isOpen)}>
-        <span className="globe-icon">🌐</span>
+        <GlobeSign size={14} className="globe-sign" />
         {!isOpen && <span className="language-short">{currentInfo.short}</span>}
         {isOpen && <span className="language-full">{currentInfo.full}</span>}
       </button>
