@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import Upload from './components/Upload';
 import Query from './components/Query';
-import Documents from './components/Documents';
 import { SessionContext } from './contexts/session-context';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ThemeSwitcher from './components/ThemeSwitcher';
@@ -17,9 +16,8 @@ function App() {
   }
 
   // One page, in the order the work actually happens: put a document in, see what
-  // is in, ask about it. The three tabs described one workflow as three places,
-  // which meant the answer and the document it came from could never be on screen
-  // together. Nothing was gained by hiding two thirds of a three-step task.
+  // is in, ask about it. When documents are active, upload collapses into a compact
+  // document bar so the query, answer, and sources take the stage together.
   return (
     <div className="container">
       <header className="header">
@@ -39,9 +37,6 @@ function App() {
       <main className="single-page">
         <section id="upload" className="page-section">
           <Upload />
-        </section>
-        <section id="documents" className="page-section">
-          <Documents />
         </section>
         <section id="query" className="page-section">
           <Query />

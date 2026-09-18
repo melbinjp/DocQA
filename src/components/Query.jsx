@@ -97,28 +97,35 @@ const Query = () => {
     "What are the main conclusions?",
   ];
 
+  const hasDocuments = documents && documents.length > 0;
+
   return (
     <div className="query-container">
       <div className="query-input-area">
         <textarea
           value={q}
           onChange={handleQueryChange}
-          placeholder={t('query.placeholder')}
+          placeholder={hasDocuments ? t('query.placeholder') : t('query.noDocsPlaceholder')}
           rows="4"
-          className="query-textarea"
+          disabled={!hasDocuments}
+          className={`query-textarea ${!hasDocuments ? 'disabled-state' : ''}`}
         />
-        <button onClick={() => handleQuery()} disabled={loading || !q} className="query-button">
+        <button 
+          onClick={() => handleQuery()} 
+          disabled={loading || !q || !hasDocuments} 
+          className="query-button"
+        >
           {loading ? t('query.searching') : t('query.submit')}
         </button>
       </div>
 
-      <div className="example-queries">
+      <div className={`example-queries ${!hasDocuments ? 'disabled-section' : ''}`}>
         <h4>Try these examples:</h4>
         {exampleQuestions.map((question, index) => (
           <span 
             key={index} 
-            className="example-query" 
-            onClick={() => handleQuery(question)}
+            className={`example-query ${!hasDocuments ? 'disabled-query' : ''}`} 
+            onClick={() => hasDocuments && handleQuery(question)}
           >
             {question}
           </span>
