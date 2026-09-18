@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { DocumentContext } from './document-context';
 import { SessionContext } from './session-context';
 
@@ -7,6 +7,19 @@ const STORAGE_KEY = 'docqa-documents';
 export const DocumentProvider = ({ children }) => {
   const { sessionId } = useContext(SessionContext);
   const [documents, setDocuments] = useState([]);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [isIngesting, setIsIngesting] = useState(false);
+  const submitHandlerRef = useRef(null);
+
+  const registerSubmitHandler = useCallback((handler) => {
+    submitHandlerRef.current = handler;
+  }, []);
+
+  const triggerSubmit = useCallback(() => {
+    if (submitHandlerRef.current) {
+      submitHandlerRef.current();
+    }
+  }, []);
 
   // Documents are stored against the session they were ingested into, because
   // that is the only session they exist in.
@@ -58,7 +71,17 @@ export const DocumentProvider = ({ children }) => {
   };
 
   return (
-    <DocumentContext.Provider value={{ documents, addDocument, removeDocument }}>
+    <DocumentContext.Provider value={{
+      documents,
+      addDocument,
+      removeDocument,
+      pendingCount,
+      setPendingCount,
+      isIngesting,
+      setIsIngesting,
+      registerSubmitHandler,
+      triggerSubmit
+    }}>
       {children}
     </DocumentContext.Provider>
   );

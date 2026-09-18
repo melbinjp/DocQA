@@ -2,6 +2,119 @@
   margin-top: 30px;
 }
 
+/* Workflow Guidance Banners */
+.query-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.query-status-banner .banner-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.query-status-banner .banner-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.query-status-banner .banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.query-status-banner .banner-title {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.query-status-banner .banner-desc {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* 1. Locked Banner: Subdued, informative */
+.query-status-banner.locked {
+  background: var(--input-bg);
+  border: 1.5px dashed var(--border-color-dashed, #888);
+  color: var(--text-color-subtle);
+}
+
+.query-status-banner.locked .banner-title {
+  color: var(--text-color);
+}
+
+/* 2. Pending Banner: Amber / warning highlight requiring action */
+.query-status-banner.pending {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1.5px solid rgba(245, 158, 11, 0.8);
+  color: var(--text-color);
+}
+
+[data-theme='dark'] .query-status-banner.pending {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.9);
+}
+
+.query-status-banner.pending .banner-title {
+  color: #b45309;
+}
+
+[data-theme='dark'] .query-status-banner.pending .banner-title {
+  color: #fbbf24;
+}
+
+.banner-action-btn {
+  background: #d97706;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  margin: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.banner-action-btn:hover {
+  background: #b45309;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+/* 3. Ingesting Banner: Blue / subtle pulse */
+.query-status-banner.ingesting {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1.5px solid var(--primary-accent, #6366f1);
+  color: var(--text-color);
+}
+
+.query-status-banner.ingesting .banner-title {
+  color: var(--primary-accent, #6366f1);
+}
+
+/* 4. Active Hint */
+.query-active-hint {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color-subtle);
+  margin-bottom: 10px;
+}
+
 .query-input {
   width: 100%;
   padding: 15px 20px;
@@ -453,5 +566,18 @@
     margin: 0;
     width: 100%;
     text-align: center;
+  }
+
+  .query-status-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .banner-action-btn {
+    width: 100%;
+    text-align: center;
+    padding: 8px 12px;
   }
 }

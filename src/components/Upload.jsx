@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SessionContext } from '../contexts/session-context';
 import { DocumentContext } from '../contexts/document-context';
@@ -9,11 +9,18 @@ import './Upload.css';
 
 const Upload = () => {
   const { sessionId } = useContext(SessionContext);
-  const { documents, addDocument, removeDocument } = useContext(DocumentContext);
+  const { 
+    documents, 
+    addDocument, 
+    removeDocument, 
+    setPendingCount, 
+    setIsIngesting, 
+    registerSubmitHandler 
+  } = useContext(DocumentContext);
   const { t } = useTranslation();
   const [files, setFiles] = useState([]);
-  const [urlInput, setUrlInput] = useState('');
   const [urls, setUrls] = useState([]);
+  const [urlInput, setUrlInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
@@ -270,10 +277,42 @@ const Upload = () => {
     }
   };
 
+  useEffect(() => {
+    if (setPendingCount) {
+      setPendingCount(files.length + urls.length);
+    }
+  }, [files.length, urls.length, setPendingCount]);
+
+  useEffect(() => {
+    if (setIsIngesting) {
+      setIsIngesting(loading);
+    }
+  }, [loading, setIsIngesting]);
+
+  const handleSubmitRef = useRef(handleSubmit);
+  handleSubmitRef.current = handleSubmit;
+
+  useEffect(() => {
+    if (registerSubmitHandler) {
+      registerSubmitHandler(() => {
+        if (handleSubmitRef.current) {
+          handleSubmitRef.current();
+        }
+      });
+    }
+  }, [registerSubmitHandler]);
+
+  const pendingItemsCount = files.length + urls.length;
+
   return (
     <div className="document-deck">
       <div className="deck-header">
-        <span className="deck-title">📚 {t('documents.title')} ({documents.length})</span>
+        <span className="deck-title">
+          📚 {t('documents.title')} ({documents.length})
+          {documents.length === 0 && (
+            <span className="deck-step-badge"> • {t('upload.step1Title')}</span>
+          )}
+        </span>
         {documents.length > 0 && (
           <button 
             type="button"
@@ -353,6 +392,12 @@ const Upload = () => {
                 type="text" 
                 value={urlInput}
                 onChange={handleUrlInputChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSubmit();
+                  }
+                }}
                 className="deck-url-input" 
                 placeholder={t('upload.urlPlaceholder')}
               />
@@ -386,14 +431,26 @@ const Upload = () => {
               </button>
             </div>
 
-            <button 
-              type="button"
-              className="deck-submit-btn" 
-              onClick={handleSubmit} 
-              disabled={loading || (files.length === 0 && urls.length === 0)}
-            >
-              {loading ? t('upload.processing') : t('upload.submitAll')}
-            </button>
+            <div className="deck-submit-cluster">
+              {pendingItemsCount > 0 && !loading && (
+                <span className="deck-ready-hint">
+                  {t('upload.readyHint')}
+                </span>
+              )}
+              <button 
+                type="button"
+                className={`deck-submit-btn ${pendingItemsCount > 0 ? 'ready' : ''}`} 
+                onClick={handleSubmit} 
+                disabled={loading || pendingItemsCount === 0}
+              >
+                {loading 
+                  ? `⏳ ${t('upload.processing')}` 
+                  : pendingItemsCount > 0
+                    ? `${t('upload.ingestProcessCount', { count: pendingItemsCount })} →`
+                    : t('upload.ingestDocument')
+                }
+              </button>
+            </div>
           </div>
 
           {processResults.length > 0 && (

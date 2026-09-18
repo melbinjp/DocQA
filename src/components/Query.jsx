@@ -9,7 +9,7 @@ import './Query.css';
 
 const Query = () => {
   const { sessionId } = useContext(SessionContext);
-  const { documents } = useContext(DocumentContext);
+  const { documents, pendingCount, isIngesting, triggerSubmit } = useContext(DocumentContext);
   const { t } = useTranslation();
 
   const getDocumentName = (docId) => {
@@ -101,6 +101,58 @@ const Query = () => {
 
   return (
     <div className="query-container">
+      {/* Workflow Guidance Banners */}
+      {!hasDocuments && !isIngesting && (!pendingCount || pendingCount === 0) && (
+        <div className="query-status-banner locked">
+          <div className="banner-content">
+            <span className="banner-icon">🔒</span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepLockedBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepLockedBannerDesc')}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!hasDocuments && !isIngesting && pendingCount > 0 && (
+        <div className="query-status-banner pending">
+          <div className="banner-content">
+            <span className="banner-icon">⚠️</span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepPendingBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepPendingBannerDesc')}</span>
+            </div>
+          </div>
+          {triggerSubmit && (
+            <button 
+              type="button" 
+              className="banner-action-btn" 
+              onClick={() => triggerSubmit()}
+            >
+              {t('query.ingestNowAction')}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isIngesting && (
+        <div className="query-status-banner ingesting">
+          <div className="banner-content">
+            <span className="banner-icon">⏳</span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepIngestingBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepIngestingBannerDesc')}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {hasDocuments && (
+        <div className="query-active-hint">
+          <span>💬 {t('query.activePrompt')}</span>
+        </div>
+      )}
+
       <div className="query-input-area">
         <textarea
           value={q}
