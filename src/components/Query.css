@@ -98,15 +98,15 @@
   transform: translate(-1px, -1px);
 }
 
-/* 3. Ingesting Banner: Blue / subtle pulse */
+/* 3. Ingesting Banner: Amber / subtle pulse */
 .query-status-banner.ingesting {
-  background: rgba(99, 102, 241, 0.1);
-  border: 2px solid var(--primary-accent, #6366f1);
+  background: rgba(245, 158, 11, 0.1);
+  border: 2px solid var(--primary-accent, #d97706);
   color: var(--text-color);
 }
 
 .query-status-banner.ingesting .banner-title {
-  color: var(--primary-accent, #6366f1);
+  color: var(--primary-accent, #d97706);
 }
 
 /* 4. Active Hint */

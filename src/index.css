@@ -5,32 +5,32 @@ html {
 :root {
   --bg-color: #fff;
   --text-color: #111;
-  --text-color-subtle: #666;
-  --text-color-light: #444;
-  --primary-accent: #111;
-  --primary-accent-hover: #000;
-  --container-bg: rgba(255, 255, 255, 0.85);
-  --header-bg: rgba(255, 255, 255, 0.92);
-  --interactive-bg: rgba(255, 255, 255, 0.85);
+  --text-color-subtle: #555;
+  --text-color-light: #333;
+  --primary-accent: #d97706;
+  --primary-accent-hover: #b45309;
+  --container-bg: rgba(255, 255, 255, 0.88);
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --interactive-bg: rgba(255, 255, 255, 0.88);
   --interactive-bg-hover: #111;
   --interactive-text-hover: #fff;
-  --input-bg: rgba(255, 255, 255, 0.7);
-  --box-bg: rgba(255, 255, 255, 0.7);
-  --results-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(255, 255, 255, 0.75);
+  --box-bg: rgba(255, 255, 255, 0.75);
+  --results-bg: rgba(255, 255, 255, 0.94);
   --border-color: #111;
   --border-color-dashed: #111;
   --border-color-hover: #000;
   --error-color: #c00;
   --error-border-color: #c00;
   --spinner-bg: #fff;
-  --spinner-fg: #111;
+  --spinner-fg: #d97706;
   --shadow-sm: rgba(0, 0, 0, 0.04);
   --shadow-md: rgba(0, 0, 0, 0.07);
   --shadow-lg: rgba(0, 0, 0, 0.1);
   --shadow-xl: rgba(0, 0, 0, 0.13);
   --header-line-color: #111;
   --header-line-opacity: 0.18;
-  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23111" stroke-width="2.5" fill="none" opacity="0.05"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23111" stroke-width="2" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="130" stroke="%23111" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23111" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23111" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23111" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23111" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23111" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23111" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
+  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23111" stroke-width="2.5" fill="none" opacity="0.05"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23111" stroke-width="2" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="130" stroke="%23d97706" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="85" stroke="%23d97706" stroke-width="1.8" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="40" stroke="%23d97706" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="5" fill="%23d97706" opacity="0.06"/><circle cx="8%25" cy="86%25" r="150" stroke="%23111" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23111" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23111" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
 }
 
 /* SVG line-art background with concentric circle motifs */
@@ -238,32 +238,32 @@ input:focus, textarea:focus {
 [data-theme='dark'] {
   --bg-color: #121212;
   --text-color: #f5f5f5;
-  --text-color-subtle: #a0a0a0;
-  --text-color-light: #bbbbbb;
-  --primary-accent: #bb86fc;
-  --primary-accent-hover: #d1c4e9;
-  --container-bg: rgba(24, 26, 27, 0.85);
-  --header-bg: rgba(30, 32, 33, 0.92);
-  --interactive-bg: rgba(40, 42, 43, 0.85);
-  --interactive-bg-hover: #bb86fc;
-  --interactive-text-hover: #121212;
-  --input-bg: rgba(40, 42, 43, 0.7);
-  --box-bg: rgba(40, 42, 43, 0.7);
-  --results-bg: rgba(30, 32, 33, 0.92);
-  --border-color: #bb86fc;
-  --border-color-dashed: #777;
-  --border-color-hover: #d1c4e9;
-  --error-color: #cf6679;
-  --error-border-color: #cf6679;
-  --spinner-bg: #121212;
-  --spinner-fg: #bb86fc;
-  --shadow-sm: rgba(255, 255, 255, 0.05);
-  --shadow-md: rgba(255, 255, 255, 0.08);
-  --shadow-lg: rgba(255, 255, 255, 0.12);
-  --shadow-xl: rgba(255, 255, 255, 0.15);
-  --header-line-color: #bb86fc;
-  --header-line-opacity: 0.3;
-  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.05"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="130" stroke="%23bb86fc" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.06"/><circle cx="92%25" cy="14%25" r="85" stroke="%23bb86fc" stroke-width="1.8" fill="none" opacity="0.06"/><circle cx="92%25" cy="14%25" r="40" stroke="%23bb86fc" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.06"/><circle cx="92%25" cy="14%25" r="5" fill="%23bb86fc" opacity="0.07"/><circle cx="8%25" cy="86%25" r="150" stroke="%23bb86fc" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.05"/><circle cx="8%25" cy="86%25" r="95" stroke="%23bb86fc" stroke-width="1.6" fill="none" opacity="0.05"/><circle cx="8%25" cy="86%25" r="45" stroke="%23bb86fc" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.05"/></svg>');
+  --text-color-subtle: #a1a1aa;
+  --text-color-light: #d4d4d8;
+  --primary-accent: #f59e0b;
+  --primary-accent-hover: #fbbf24;
+  --container-bg: rgba(24, 24, 27, 0.88);
+  --header-bg: rgba(30, 30, 34, 0.94);
+  --interactive-bg: rgba(39, 39, 42, 0.85);
+  --interactive-bg-hover: #27272a;
+  --interactive-text-hover: #fbbf24;
+  --input-bg: rgba(39, 39, 42, 0.7);
+  --box-bg: rgba(39, 39, 42, 0.7);
+  --results-bg: rgba(26, 26, 30, 0.94);
+  --border-color: #3f3f46;
+  --border-color-dashed: #52525b;
+  --border-color-hover: #71717a;
+  --error-color: #f87171;
+  --error-border-color: #ef4444;
+  --spinner-bg: #18181b;
+  --spinner-fg: #f59e0b;
+  --shadow-sm: rgba(0, 0, 0, 0.25);
+  --shadow-md: rgba(0, 0, 0, 0.35);
+  --shadow-lg: rgba(0, 0, 0, 0.45);
+  --shadow-xl: rgba(0, 0, 0, 0.55);
+  --header-line-color: #f59e0b;
+  --header-line-opacity: 0.15;
+  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.04"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.03"/><circle cx="92%25" cy="14%25" r="130" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23f59e0b" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23f59e0b" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23f59e0b" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23f59e0b" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
 }
 
 /* Footer Styling */

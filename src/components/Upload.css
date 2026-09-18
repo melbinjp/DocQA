@@ -275,7 +275,7 @@
 .deck-step-badge {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--primary-accent, #6366f1);
+  color: var(--primary-accent, #d97706);
   margin-left: 4px;
 }
 
@@ -515,7 +515,7 @@
 
 .deck-ready-hint {
   font-size: 12px;
-  color: var(--primary-accent, #6366f1);
+  color: var(--primary-accent, #d97706);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -546,27 +546,27 @@
 }
 
 .deck-submit-btn.ready {
-  background: var(--primary-accent, #6366f1);
+  background: var(--primary-accent, #d97706);
   color: #fff;
   border-color: var(--border-color);
-  box-shadow: 2px 3px 0 var(--border-color), 0 0 0 3px rgba(99, 102, 241, 0.25);
+  box-shadow: 2px 3px 0 var(--border-color), 0 0 0 3px rgba(217, 119, 6, 0.25);
   animation: pulse-ready 2.5s infinite ease-in-out;
 }
 
 .deck-submit-btn.ready:hover {
-  background: var(--primary-accent-hover, #4f46e5);
+  background: var(--primary-accent-hover, #b45309);
   color: #fff;
   border-color: var(--border-color);
-  box-shadow: 3px 4px 0 var(--border-color), 0 0 0 4px rgba(99, 102, 241, 0.35);
+  box-shadow: 3px 4px 0 var(--border-color), 0 0 0 4px rgba(217, 119, 6, 0.35);
   transform: translate(-1px, -1px);
 }
 
 @keyframes pulse-ready {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 }
 
