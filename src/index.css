@@ -28,6 +28,7 @@ html {
   --shadow-md: rgba(0, 0, 0, 0.07);
   --shadow-lg: rgba(0, 0, 0, 0.1);
   --shadow-xl: rgba(0, 0, 0, 0.13);
+  --shadow-solid: #111;
   --header-line-color: #111;
   --header-line-opacity: 0.18;
   --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23111" stroke-width="2.5" fill="none" opacity="0.05"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23111" stroke-width="2" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="130" stroke="%23d97706" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="85" stroke="%23d97706" stroke-width="1.8" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="40" stroke="%23d97706" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.05"/><circle cx="92%25" cy="14%25" r="5" fill="%23d97706" opacity="0.06"/><circle cx="8%25" cy="86%25" r="150" stroke="%23111" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23111" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23111" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
@@ -66,7 +67,7 @@ body {
   background: var(--container-bg);
   border: 2.5px solid var(--border-color);
   border-radius: 36px 80px 36px 80px/60px 36px 80px 36px;
-  box-shadow: 0 12px 40px 0 var(--shadow-xl), 3px 4px 0 var(--border-color);
+  box-shadow: 0 12px 40px 0 var(--shadow-xl), 3px 4px 0 var(--shadow-solid, #000);
   overflow: visible;
   padding: 0 24px 32px 24px;
   position: relative;
@@ -189,7 +190,7 @@ input:focus, textarea:focus {
     border-radius: 24px 48px 24px 48px/36px 24px 48px 24px;
     margin: 0;
     padding: 0 10px 24px 10px;
-    box-shadow: 0 4px 16px var(--shadow-md), 2px 3px 0 var(--border-color);
+    box-shadow: 0 4px 16px var(--shadow-md), 2px 3px 0 var(--shadow-solid, #000);
     border: 2px solid var(--border-color);
   }
 
@@ -240,30 +241,31 @@ input:focus, textarea:focus {
   --text-color: #f5f5f5;
   --text-color-subtle: #a1a1aa;
   --text-color-light: #d4d4d8;
-  --primary-accent: #f59e0b;
-  --primary-accent-hover: #fbbf24;
-  --container-bg: rgba(24, 24, 27, 0.88);
-  --header-bg: rgba(30, 30, 34, 0.94);
+  --primary-accent: #facc15;
+  --primary-accent-hover: #fde047;
+  --container-bg: rgba(24, 24, 27, 0.9);
+  --header-bg: rgba(30, 30, 34, 0.95);
   --interactive-bg: rgba(39, 39, 42, 0.85);
   --interactive-bg-hover: #27272a;
-  --interactive-text-hover: #fbbf24;
+  --interactive-text-hover: #facc15;
   --input-bg: rgba(39, 39, 42, 0.7);
   --box-bg: rgba(39, 39, 42, 0.7);
-  --results-bg: rgba(26, 26, 30, 0.94);
-  --border-color: #3f3f46;
-  --border-color-dashed: #52525b;
-  --border-color-hover: #71717a;
+  --results-bg: rgba(26, 26, 30, 0.95);
+  --border-color: #f4f4f5;
+  --border-color-dashed: #a1a1aa;
+  --border-color-hover: #ffffff;
   --error-color: #f87171;
   --error-border-color: #ef4444;
   --spinner-bg: #18181b;
-  --spinner-fg: #f59e0b;
-  --shadow-sm: rgba(0, 0, 0, 0.25);
-  --shadow-md: rgba(0, 0, 0, 0.35);
-  --shadow-lg: rgba(0, 0, 0, 0.45);
-  --shadow-xl: rgba(0, 0, 0, 0.55);
-  --header-line-color: #f59e0b;
-  --header-line-opacity: 0.15;
-  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.04"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.03"/><circle cx="92%25" cy="14%25" r="130" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23f59e0b" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23f59e0b" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23f59e0b" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23f59e0b" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23f59e0b" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
+  --spinner-fg: #facc15;
+  --shadow-sm: rgba(0, 0, 0, 0.35);
+  --shadow-md: rgba(0, 0, 0, 0.5);
+  --shadow-lg: rgba(0, 0, 0, 0.65);
+  --shadow-xl: rgba(0, 0, 0, 0.8);
+  --shadow-solid: #000;
+  --header-line-color: #facc15;
+  --header-line-opacity: 0.2;
+  --svg-bg-url: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><path d="M0,100 Q200,200 400,100 T800,100 T1200,100" stroke="%23f5f5f5" stroke-width="2.5" fill="none" opacity="0.04"/><path d="M0,450 Q300,550 600,450 T1200,450" stroke="%23f5f5f5" stroke-width="2" fill="none" opacity="0.03"/><circle cx="92%25" cy="14%25" r="130" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="6 4" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="85" stroke="%23facc15" stroke-width="1.8" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="40" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="3 3" fill="none" opacity="0.04"/><circle cx="92%25" cy="14%25" r="5" fill="%23facc15" opacity="0.05"/><circle cx="8%25" cy="86%25" r="150" stroke="%23facc15" stroke-width="1.5" stroke-dasharray="8 5" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="95" stroke="%23facc15" stroke-width="1.6" fill="none" opacity="0.03"/><circle cx="8%25" cy="86%25" r="45" stroke="%23facc15" stroke-width="1.4" stroke-dasharray="4 3" fill="none" opacity="0.03"/></svg>');
 }
 
 /* Footer Styling */

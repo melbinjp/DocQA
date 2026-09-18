@@ -57,44 +57,52 @@
   color: var(--text-color);
 }
 
-/* 2. Pending Banner: Amber / warning highlight requiring action */
+/* 2. Pending Banner: High-contrast Comic Yellow warning highlight requiring action */
 .query-status-banner.pending {
-  background: rgba(245, 158, 11, 0.12);
-  border: 2px solid rgba(245, 158, 11, 0.85);
+  background: rgba(250, 204, 21, 0.12);
+  border: 2px solid #ca8a04;
   color: var(--text-color);
 }
 
 [data-theme='dark'] .query-status-banner.pending {
-  background: rgba(245, 158, 11, 0.2);
-  border-color: rgba(245, 158, 11, 0.9);
+  background: #27272a;
+  border: 2.5px solid #facc15;
+  box-shadow: 3px 3px 0 #000;
 }
 
 .query-status-banner.pending .banner-title {
-  color: #b45309;
+  color: #ca8a04;
+  font-weight: 800;
 }
 
 [data-theme='dark'] .query-status-banner.pending .banner-title {
-  color: #fbbf24;
+  color: #facc15;
+  font-weight: 800;
+}
+
+[data-theme='dark'] .query-status-banner.pending .banner-desc {
+  color: #f4f4f5;
+  font-weight: 500;
 }
 
 .banner-action-btn {
-  background: #d97706;
-  color: #fff;
-  border: 1.5px solid #b45309;
+  background: #facc15;
+  color: #000000;
+  border: 2px solid #000000;
   border-radius: 12px 24px 12px 24px/20px 12px 24px 12px;
   padding: 6px 14px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
   margin: 0;
-  box-shadow: 1px 2px 0 #78350f;
+  box-shadow: 2px 2px 0 #000000;
   transition: all 0.2s ease;
 }
 
 .banner-action-btn:hover {
-  background: #b45309;
-  box-shadow: 2px 3px 0 #78350f;
+  background: #fde047;
+  box-shadow: 3px 3px 0 #000000;
   transform: translate(-1px, -1px);
 }
 

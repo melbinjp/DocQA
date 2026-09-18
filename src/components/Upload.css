@@ -546,27 +546,28 @@
 }
 
 .deck-submit-btn.ready {
-  background: var(--primary-accent, #d97706);
-  color: #fff;
-  border-color: var(--border-color);
-  box-shadow: 2px 3px 0 var(--border-color), 0 0 0 3px rgba(217, 119, 6, 0.25);
+  background: var(--primary-accent, #facc15);
+  color: #000000;
+  font-weight: 800;
+  border: 2.5px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
   animation: pulse-ready 2.5s infinite ease-in-out;
 }
 
 .deck-submit-btn.ready:hover {
-  background: var(--primary-accent-hover, #b45309);
-  color: #fff;
-  border-color: var(--border-color);
-  box-shadow: 3px 4px 0 var(--border-color), 0 0 0 4px rgba(217, 119, 6, 0.35);
+  background: var(--primary-accent-hover, #fde047);
+  color: #000000;
+  border-color: #000000;
+  box-shadow: 4px 4px 0 #000000;
   transform: translate(-1px, -1px);
 }
 
 @keyframes pulse-ready {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6), 3px 3px 0 #000000;
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.2), 3px 3px 0 #000000;
   }
 }
 
