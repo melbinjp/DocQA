@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ThemeSign } from './Signs';
 import './ThemeSwitcher.css';
 
 const ThemeSwitcher = () => {
@@ -40,16 +41,9 @@ const ThemeSwitcher = () => {
     applyTheme(newTheme);
   };
 
-  const getIcon = () => {
-    if (theme === 'system') {
-      return '🖥️';
-    }
-    return theme === 'dark' ? '🌙' : '☀️';
-  };
-
   return (
-    <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
-      {getIcon()}
+    <button className="theme-toggle" onClick={toggleTheme} title={`Theme: ${theme}`}>
+      <ThemeSign theme={theme} size={15} />
     </button>
   );
 };

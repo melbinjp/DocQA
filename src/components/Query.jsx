@@ -5,11 +5,20 @@ import { DocumentContext } from '../contexts/document-context';
 import { queryStream } from '../services/api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { 
+  LockSign, 
+  AlertSign, 
+  OrbitSpinner, 
+  SparkSign, 
+  LayersSign, 
+  NestedCirclesSign, 
+  DocSign 
+} from './Signs';
 import './Query.css';
 
 const Query = () => {
   const { sessionId } = useContext(SessionContext);
-  const { documents } = useContext(DocumentContext);
+  const { documents, pendingCount, isIngesting, triggerSubmit } = useContext(DocumentContext);
   const { t } = useTranslation();
 
   const getDocumentName = (docId) => {
@@ -101,6 +110,59 @@ const Query = () => {
 
   return (
     <div className="query-container">
+      {/* Workflow Guidance Banners */}
+      {!hasDocuments && !isIngesting && (!pendingCount || pendingCount === 0) && (
+        <div className="query-status-banner locked">
+          <div className="banner-content">
+            <span className="banner-icon"><LockSign size={18} /></span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepLockedBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepLockedBannerDesc')}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!hasDocuments && !isIngesting && pendingCount > 0 && (
+        <div className="query-status-banner pending">
+          <div className="banner-content">
+            <span className="banner-icon"><AlertSign size={18} /></span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepPendingBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepPendingBannerDesc')}</span>
+            </div>
+          </div>
+          {triggerSubmit && (
+            <button 
+              type="button" 
+              className="banner-action-btn" 
+              onClick={() => triggerSubmit()}
+            >
+              {t('query.ingestNowAction')}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isIngesting && (
+        <div className="query-status-banner ingesting">
+          <div className="banner-content">
+            <span className="banner-icon"><OrbitSpinner size={18} /></span>
+            <div className="banner-text">
+              <strong className="banner-title">{t('query.stepIngestingBannerTitle')}</strong>
+              <span className="banner-desc">{t('query.stepIngestingBannerDesc')}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {hasDocuments && (
+        <div className="query-active-hint">
+          <SparkSign size={15} className="hint-spark" />
+          <span>{t('query.activePrompt')}</span>
+        </div>
+      )}
+
       <div className="query-input-area">
         <textarea
           value={q}
@@ -115,7 +177,13 @@ const Query = () => {
           disabled={loading || !q || !hasDocuments} 
           className="query-button"
         >
-          {loading ? t('query.searching') : t('query.submit')}
+          {loading ? (
+            <>
+              <OrbitSpinner size={14} /> <span>{t('query.searching')}</span>
+            </>
+          ) : (
+            <span>{t('query.submit')}</span>
+          )}
         </button>
       </div>
 
@@ -132,7 +200,12 @@ const Query = () => {
         ))}
       </div>
 
-      {loading && <div className="loader">{t('query.searching')}</div>}
+      {loading && (
+        <div className="loader">
+          <OrbitSpinner size={22} />
+          <span>{t('query.searching')}</span>
+        </div>
+      )}
       {error && <div className="error-message">{error}</div>}
 
       {queryHistory.length > 0 && (
@@ -141,7 +214,7 @@ const Query = () => {
             className="history-toggle"
             onClick={() => setShowHistory(!showHistory)}
           >
-            📚 Query History ({queryHistory.length})
+            <LayersSign size={15} /> <span>Query History ({queryHistory.length})</span>
           </button>
           {showHistory && (
             <div className="history-list">
@@ -162,7 +235,9 @@ const Query = () => {
 
       {result && (
         <div className="results-section">
-          <div className="result-header">📝 Answer</div>
+          <div className="result-header">
+            <DocSign size={17} /> <span>Answer</span>
+          </div>
           <div className="answer-box pretext-paper">
             <div className="answer-text">
               <ReactMarkdown remarkPlugins={[remarkGfm]} children={result.answer} />
@@ -171,20 +246,25 @@ const Query = () => {
           
           {result.sources && result.sources.length > 0 && (
             <>
-              <div className="result-header">📚 Sources</div>
+              <div className="result-header">
+                <NestedCirclesSign size={17} /> <span>{t('query.sources')} ({result.sources.length})</span>
+              </div>
               <div className="sources-box">
                 {result.sources.map((source, index) => (
-                  <div key={index} className="source-item">
-                    <div className="source-text">"{source.text || source}"</div>
-                    <div className="source-meta">
-                      {source.doc_id && (
-                        <span className="source-doc">
-                          {getDocumentName(source.doc_id)}
-                          {source.page != null && (
-                            <span className="source-page"> · {t('query.page', { page: source.page })}</span>
-                          )}
+                  <div key={index} className="citation-card">
+                    <div className="citation-header">
+                      <span className="citation-index">[{index + 1}]</span>
+                      <span className="citation-doc" title={getDocumentName(source.doc_id)}>
+                        {getDocumentName(source.doc_id)}
+                      </span>
+                      {source.page != null && (
+                        <span className="citation-page-badge">
+                          {t('query.page', { page: source.page })}
                         </span>
                       )}
+                    </div>
+                    <div className="citation-quote">
+                      "{source.text || source}"
                     </div>
                   </div>
                 ))}

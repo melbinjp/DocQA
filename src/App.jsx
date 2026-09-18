@@ -6,6 +6,7 @@ import { SessionContext } from './contexts/session-context';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import SessionStatus from './components/SessionStatus';
+import { NestedCirclesSign } from './components/Signs';
 
 function App() {
   const { loading } = useContext(SessionContext);
@@ -22,9 +23,11 @@ function App() {
     <div className="container">
       <header className="header">
         <div className="header-content">
-          <div>
-            <h1>📄 Chat with a Doc</h1>
-            <p>Upload documents and chat with them using AI-powered search</p>
+          <div className="header-brand">
+            <h1>
+              <NestedCirclesSign size={22} className="brand-concentric" />
+              <span>Chat with a Doc</span>
+            </h1>
           </div>
           <div className="header-controls">
             <SessionStatus />
